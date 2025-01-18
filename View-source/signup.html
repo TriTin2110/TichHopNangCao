@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/Signup2.css" />
+    <!-- font roboto -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .error-message {
+        color: red;
+        font-size: 12px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- form signup -->
+    <div class="signup" style="background-image: url(images/shoes-img10.png);background-position: left;">
+      <div class="signup__container" >
+        <h1>Đăng Ký</h1>
+        <form action="" >
+          <h5>User Name</h5>
+          <input oninput ="checkUserName()" type="text" class="user-name" id="txtusername"/>
+          <div id="name-error" class="error-message">Vui lòng nhập ít nhất 6 kí tự và không chứa kí tự đặc biệt</div>
+          <h5>SĐT</h5>
+          <input oninput ="checkSDT()" type="text" class="sdt" id="txtsdt"/>
+          <div id="sdt-error" class="error-message">Vui lòng đúng định dạng sđt</div>
+          <h5>Email</h5>
+          <input oninput ="checkEmail()" type="text" class="input-signup-username" id="txtemail" />
+          <div id="email-error" class="error-message">Vui lòng đúng định dạng email</div>
+          <h5>Password</h5>
+          <input oninput ="checkPass()" type="password" class="input-signup-password" id="txtpass"/>
+          <div id="pass-error" class="error-message">Có ít nhất 6 kí tự gồm (chữ, số, kí tự đặc biệt)</div>
+          <h5>Confirm password</h5>
+          <input oninput ="checkRepass()" type="password" class="confirm-password" id="txtrepass">
+          <div id="repass-error" class="error-message">Vui lòng nhập lại đúng mật khẩu</div>
+          <button onclick="saveData()" type="submit" class="signup__signInButton">Đăng Ký</button>
+        </form>
+        <a href="./login.html" class="signup__registerButton" style="display: inline-block;margin-right: 100px;">Đăng nhập</a>
+        <a href="./index.html" class="signup__registerButton" style="display: inline-block;">Về trang chủ</a>
+      </div>
+    </div>
+  </body>
+  <script src="./js/signup.js"></script>
+</html>
