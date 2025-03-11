@@ -366,7 +366,10 @@ body{
 .carousel-indicators li{
     display:block; margin-bottom:5px; border:1px solid #00a199; 
     margin-bottom: 5px;}
+<<<<<<< HEAD
+=======
     
+>>>>>>> 36c988292624b043f56be4bd711930602ecd487b
 
 .carousel-indicators li.active{
     margin-bottom:5px; background:#00a199;
@@ -810,7 +813,8 @@ opacity: 1;
     background: #0c0116;
 }
 
-.email_box label{
-    color: white;
-    font-size: 15px;
+#home, #collection, #shoes, #contact, #Racingboots {
+    color:#ff4e5b;
 }
+
+
