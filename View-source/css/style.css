@@ -47,7 +47,7 @@ body {
 
 
 a {
-     color: #1f1f1f;
+    color: white;
      text-decoration: none !important;
      outline: none !important;
      -webkit-transition: all .3s ease-in-out;
@@ -136,7 +136,6 @@ p {
 }
 
 a {
-     color: #222222;
      text-decoration: none;
      outline: none !important;
 }
@@ -551,7 +550,7 @@ body{
 .best_text{
 	width: 100%;
 	float: left;
-	font-size: 14pt;
+	font-size: 25px;
 	color: #000;
 	text-align: center;
     margin-left: 0px;
@@ -589,16 +588,22 @@ body{
 	width: 50%;
 	margin: 0 auto;
 	text-align: center;
+    
 }
 .buy_text{
 	width: 32%;
 	height: 50px;
-	color: #ffffff;
 	background-color: #131111;
-	color: #ffffff;
+	color: white;
 	font-size: 16pt;	
 	margin-top: 35px;
+    border-radius: 5%;
 }
+.buy_now_bt :hover{
+    color: red;
+    background-color: white;
+}
+
 
 .contact_section{
 	width: 100%;
@@ -651,10 +656,6 @@ body{
 .ram{
 	width: 100%; 
 	float: left;
-}
-
-a:hover {
-    color: #fff;
 }
 
 .shop_banner{
