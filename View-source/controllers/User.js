@@ -1,13 +1,25 @@
+import express from 'express'
+import {register} from '../repositories/index.js'
+import Exception from '../exceptions/Exceptions.js'
+
 let getAll = (req, res) => { 
-        res.send('Get All User!')
+        let email = req.params.email
+        res.send('user')
 }
 
 let getByUsername = (req, res) => {
         res.send('Get User By Username!')
 }
 
-let insert = (req, res) => {
-        res.send('Insert User!')
+let insert = async (req, res) =>  {
+        const { username, password, fullName, phone, email } = req.body
+        try {
+                const userAdded = await register(username, password, fullName, phone, email) 
+                res.send(userAdded)
+        } catch (error) {
+                throw new Exception(Exception.CANNOT_CONNECT_INSERT)
+        }
+        
 }
 
 let remove = (req, res) => {
