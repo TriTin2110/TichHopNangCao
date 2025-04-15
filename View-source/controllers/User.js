@@ -1,42 +1,59 @@
 import express from 'express'
-import { register, findByUsername } from '../repositories/index.js'
+import { userRepository } from '../repositories/index.js'
 import Exception from '../exceptions/Exceptions.js'
-
-let getAll = (req, res) => { 
-        let email = req.params.email
-        res.send('user')
-}
-
-let getByUsername = async (req, res) => {
-        const username = req.body.username
-        console.log(username)
-        const userFound = await findByUsername(username)
-        res.send(userFound)
-        return userFound
-}
-
-let insert = async (req, res) => {
-        const { username, password, fullName, phone, email } = req.body
-        let user = await findByUsername(username)
-        try {
-                if (user) { 
-                        res.send('Tài khoản đã tồn tại')
-                }     
-                else { 
-                        user = await register(username, password, fullName, phone, email)
-                        res.send(user)
-                }
-        } catch (error) {
-                throw new Exception(Exception.CANNOT_INSERT)
+class UserController {
+        async getAll(req, res) {
+                let users = await userRepository.findAll()
+                res.send(users)
         }
-}
 
-let remove = (req, res) => {
-        res.send('Delete User!')
-}
+        async getByUsername(req, res) {
+                const _id = req.body.username
+                const userFound = await userRepository.findById(_id)
+                res.send(userFound)
+                return userFound
+        }
 
-let update = (req, res) => {
-        res.send('Update User!')
-}
+        async insert(req, res) {
+                const { _id, password, fullName, phone, email } = req.body
+                let user = await userRepository.findById(_id)
+                if (user) {
+                        res.send('Tài khoản đã tồn tại')
+                }
+                else {
+                        try {
+                                user = { _id, password, fullName, phone, email }
+                                await userRepository.insert(user)
+                                res.send(user)
+                        } catch (error) {
+                                throw new Exception(Exception.CANNOT_INSERT)
+                        }
+                }
 
-export default { getAll, getByUsername, insert, remove, update }
+        }
+
+        async update(req, res) {
+                let _id = req.params.name
+                let { password, fullName, phone, email } = req.body
+                let user = { password, fullName, phone, email }
+                user = await userRepository.update(_id, user)
+                if (!user)
+                        res.send('Tài khoản không tồn tại!')
+                else
+                        res.send(user)
+        }
+
+        async remove(req, res) {
+                let _id = req.params.name
+                let user = await userRepository.remove(_id)
+                if (!user)
+                        res.send('Tài khoản không tồn tại!')
+                else
+                        res.send(user)
+
+        }
+
+
+}
+let userController = new UserController()
+export default userController

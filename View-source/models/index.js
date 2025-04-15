@@ -1,2 +1,3 @@
 import UserModel from "./User.js";
-export{UserModel}
+import ProductModel from "./Product.js";
+export { UserModel, ProductModel }

@@ -1,2 +1,3 @@
 import userController from './User.js'
-export { userController }
+import productController from './Product.js'
+export { userController, productController }

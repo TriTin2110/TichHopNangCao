@@ -1,2 +1,3 @@
 import { userRoute } from './User.js';
-export {userRoute}
+import { productRoute } from './Product.js'
+export { userRoute, productRoute }

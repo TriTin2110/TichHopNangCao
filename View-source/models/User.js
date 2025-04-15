@@ -1,9 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 const UserModel = mongoose.model('User', new Schema({
-        id: { type: Schema.Types.ObjectId },
-        username: {
+        _id: {
                 type: String,
-                required: true,
         },
 
         password: {
