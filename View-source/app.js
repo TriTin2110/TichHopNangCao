@@ -1,6 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import { userRoute, productRoute } from './routes/index.js'
+import { userRoute, productRoute, orderRoute } from './routes/index.js'
 import {writeLog, MessageType} from './util/WriteLog.js'
 import connectToDB from './database/mongodb.js'
 import Exception from './exceptions/Exceptions.js'
@@ -20,6 +20,7 @@ app.use(express.static(path.join(_dirname, '../views'))) //khai báo cho express
 app.use(bodyParser.json())
 app.use('/user', userRoute);
 app.use('/product', productRoute);
+app.use('/order', orderRoute);
 
 app.listen(8080, async () => { 
         try {
