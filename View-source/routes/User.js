@@ -3,13 +3,14 @@ import { userController } from '../controllers/index.js'
 
 let userRoute = express()
 
-userRoute.get('/get-all-user', userController.getAll)
-userRoute.get('/get-user', userController.getByUsername)
-userRoute.post('/insert', userController.insert)
-userRoute.put('/update/:name', userController.update)
-userRoute.delete('/delete/:name', userController.remove)
+userRoute.get('/', userController.getAll)
+userRoute.post('/findByUsername', userController.getByUsername)
+userRoute.post('/', userController.insert)
+userRoute.put('/:name', userController.update)
+userRoute.delete('/:name', userController.remove)
+
 userRoute.get('/login-page', (req, res) => {
-        res.render('./ejs/login.ejs')
+    res.render('./ejs/login.ejs', { error: null })
 })
 
 
