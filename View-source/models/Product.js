@@ -1,8 +1,7 @@
 import mongoose, {Schema } from 'mongoose'
 
 const ProductModel = mongoose.model('Product', new Schema({
-        _id: { type: Number },
-        name: {
+        _id: {
                 type: Schema.Types.String,
                 required: true
         },

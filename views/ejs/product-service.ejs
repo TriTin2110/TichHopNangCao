@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+
+<body>
+        <form action="/product" method="post">
+                <p>
+                        <label for="">Tên sản phẩm: </label>
+                        <input type="text" placeholder="Tên" name="_id">
+                </p>
+
+                <p>
+                        <label for="">Giá sản phẩm: </label>
+                        <input type="number" placeholder="Giá" name="price">
+                </p>
+
+                <p>
+                        <label for="">Giá khuyến mãi: </label>
+                        <input type="number" placeholder="Giá khuyến mãi" name="specialPrice">
+                </p>
+                <p>
+                        <input type="submit" value="Thêm sản phẩm mới">
+                </p>
+        </form>
+
+        <div style="color: red;">
+                <%=error && error%>
+        </div>
+        <table border="1" style="margin: 0px auto;">
+                <tr style="text-align: center;">
+                        <th>Idex</th>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Giá</th>
+                        <th>Giá Khuyến Mãi</th>
+                        <th>Đánh Giá</th>
+                        <th>Thao Tác</th>
+                </tr>
+                <% for (let product of products) { let i=1 %>
+                        <tr>
+                                <td>
+                                        <%=i%>
+                                </td>
+                                <td>
+                                        <%=product._id%>
+                                </td>
+                                <td>
+                                        <%=product.price%>
+                                </td>
+                                <td>
+                                        <%=product.specialPrice%>
+                                </td>
+                                <td>
+                                        <%=product.rating%>
+                                </td>
+                                <td>
+                                        <a class="btn btn-success" href="">Update</a>
+                                        <a class="btn btn-danger" href="/product/delete/<%=product._id%>" onclick='confirm("Bạn muốn xóa sản phẩm này sao?")' href="">Delete</a>
+                                </td>
+                        </tr>
+                        <% i++} %>
+        </table>
+        <script>
+        </script>
+</body>
+
+</html>

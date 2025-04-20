@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+</head>
+<body>
+        <form action="/product" method="post">
+                <p>
+                        <label for="">Tên sản phẩm: </label>
+                        <input type="text" placeholder="Tên" name = "name">
+                </p>
+
+                <p>
+                        <label for="">Giá sản phẩm: </label>
+                        <input type="number" placeholder="Giá" name="price">
+                </p>
+
+                <p>
+                        <label for="">Giá khuyến mãi: </label>
+                        <input type="number" placeholder="Giá khuyến mãi" name="specialPrice">
+                </p>
+                <p>
+                        <input type="submit" value="Thêm sản phẩm mới">
+                </p>
+        </form>        
+
+        <table border="1" style="margin: 0px auto;">
+                <tr>
+                        <th>Id</th>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Giá</th>
+                        <th>Giá Khuyến Mãi</th>
+                </tr>
+        </table>
+</body>
+</html>
