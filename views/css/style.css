@@ -376,7 +376,7 @@ body{
     
 }
 
-.collection_section{ width: 100%; float: left; padding-bottom: 0px; }
+.collection_section{ width: 100%; float: left; padding-bottom: 0px; background-color: #eddede;}
 .new_text{
 	width: 100%;
 	text-align: center;
@@ -486,13 +486,13 @@ body{
 .racing_shoes {
     width: 100%;
     float: left;
-    background-color: #ffffff;
+    background-color: whitesmoke;
     height: auto;
     padding-top: 70px;
     background-size: 100%;
     padding-bottom: 70px;
 }
-.shoes-img3{ width: 100%; float: left; text-align: center; }
+.shoes-img3{ width: 100%; float: left; text-align: center; background-color: wheat; }
 
 .collection_text{ 
     width: 100%; 
@@ -695,33 +695,66 @@ opacity: 1;
     width: 100%;
     float: left;
     background-color: #272222;
-    height: auto;
     padding-top: 30px;
     padding-bottom: 30px;
 }
 
-.mail_section {
-    width: 100%;
-    float: left;
+.section_footer .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    max-width: 1500px;
+    margin: auto;
+    padding: 0 20px;
 }
+
+.section_footer .col {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px;
+}
+
+/* Logo và icon */
 .footer-logo {
-    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     font-size: 12pt;
     color: #fdfefe;
 }
+.footer-logo img {
+    width: 25px;
+    height: 25px;
+    max-width: 150px;
+}
 
+/* Danh sách liên kết */
+.mail_section,
+.delivery_text {
+    width: 100%;
+    float: left;
+    font-size: 17px;
+    color: #ffffff;
+}
 .mail_section li {
     float: left;
     font-size: 12pt;
-    color: #fdfefe;
     padding-right: 35px;
+    color: #fdfefe;
 }
-.footer_section_2 {
-    width: 100%;
-    float: left;
-    padding-top: 20px;
+.delivery_text ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
 }
-.shop_text {
+.delivery_text ul li {
+    margin: 8px 0;
+}
+
+/* Thông tin thêm */
+.shop_text, .adderess_text {
     width: 100%;
     float: left;
     font-size: 28px;
@@ -732,89 +765,95 @@ opacity: 1;
     float: left;
     font-size: 12pt;
     color: #ffffff;
-    margin-left: 0px;
     margin-top: 55px;
     line-height: 25px;
-}
-.image-icon {
-    width: 100%;
-    float: left;
-    padding-top: 6px;
 }
 .pet_text {
     font-size: 12pt;
     color: #ffffff;
-    padding-left: 16px;
     display: flex;
-    top: -26px;
     position: relative;
+    top: -26px;
     padding-left: 20px;
 }
-.adderess_text {
-    width: 100%;
-    float: left;
-    font-size: 28px;
-    color: #ebebeb;
-}
-
-.copyright {
-    width: 100%;
-    float: left;
-    font-size: 12pt;
-    color: #ffffff;
-    text-align: center;
-    padding: 10px 0px;
-    background-color: #ff4e5b;
-    font-family: Poppins;
-}
-
-.copyright a{ color: #ffffff; }
-.copyright a:hover{ color: #000; }
-
 .map_text {
     padding-left: 15px;
 }
 
-.delivery_text{
-	width: 100%;
-	float: left;
-	font-size: 17px;
-	color: #ffffff;
+/* Social */
+.social_icon ul {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 0;
+}
+.social_icon ul li {
+    list-style: none;
+}
+.social_icon ul li a img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease-in-out;
+}
+.social_icon ul li a img:hover {
+    transform: scale(1.1);
 }
 
-.enter_email{
-    border: 1px solid #000;
-    color: #000000;
+/* Email & Subcribe */
+.enter_email {
     width: 100%;
-    height: 44px;
+    padding: 12px;
+    border: 1px solid white;
+    border-radius: 5px;
+    background: white;
+    color: rgb(0, 0, 0);
+    text-align: center;
     font-size: 14px;
-    padding: 20px;
 }
-
 .subscribr_bt {
-    width: 80%;
-    float: right;
+    width: 100%;
+    padding: 12px;
     background-color: #ff4e5b;
-    font-size: 13pt;
-    height: 50px;
-    color: #ffffff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.subscribr_bt:hover {
+    background-color: yellow;
+    color: black;
+    transform: scale(1.05);
 }
 
+/* Footer links */
+footer a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s, font-size 0.3s;
+}
+footer a:hover {
+    color: yellow;
+    font-size: 1.1em;
+    font-weight: bold;
+}
 
-.about_main {
+/* Copyright */
+.copyright {
     width: 100%;
     float: left;
-        padding-bottom: 30px;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #ff4e5b;
+    font-family: Poppins;
 }
-
-.header_main {
-    width: 100%;
-    height: auto;
-    background: #0c0116;
+.copyright a {
+    color: #ffffff;
 }
-
-#home, #collection, #shoes, #contact, #Racingboots {
-    color:#ff4e5b;
+.copyright a:hover {
+    color: #000;
 }
-
-
