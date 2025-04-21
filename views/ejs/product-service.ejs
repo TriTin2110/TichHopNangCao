@@ -6,47 +6,78 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
         <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <style>
+                tr {
+                        margin-bottom: 10px;
+                }
+        </style>
 </head>
 
 <body>
-        <form action="/product" method="post">
-                <p>
-                        <label for="">Tên sản phẩm: </label>
-                        <input type="text" placeholder="Tên" name="_id">
-                </p>
+        <form id="my-form" action="/product" method="post" enctype="multipart/form-data">
+                <table style="margin:20px auto; height: 200px;">
+                        <tr>
+                                <td>Tên sản phẩm:</td>
+                                <td><input type="text" placeholder="Tên" name="_id" id="_id"></td>
+                        </tr>
+                        <tr>
+                                <td>Giá sản phẩm:</td>
+                                <td><input type="number" placeholder="Giá" name="price" id="price"></td>
+                        </tr>
+                        <tr>
+                                <td>Giá khuyến mãi:</td>
+                                <td><input type="number" placeholder="Giá khuyến mãi" id="specialPrice" name="specialPrice">
+                                </td>
+                        </tr>
+                        <tr>
+                                <td>Ảnh sản phẩm:</td>
+                                <td style="display: flex; align-items: center;">
+                                        <span id="image-name"
+                                                style="display: inline-block;width: 85px;overflow: hidden !important;white-space: nowrap;"></span>
+                                        <button class="btn btn-success" onclick="return activeFileInput()">Tải file mới</button>
+                                        <input style="display: none;" type="file" id="image" name="image">
+                                        <input type="hidden" name="oldImage" id="old-image">
+                                </td>
+                        </tr>
+                        <tr style="display: none;" id="rating-record">
+                                <td>Đánh giá:</td>
+                                <td><input type="number" placeholder="Đánh giá" id="rating" name="rating">
+                                </td>
+                        </tr>
+                        <tr>
+                                <td>
+                                        <input id="submit-button" class="btn btn-success" type="submit"
+                                                value="Thêm sản phẩm mới" style="width: 100%;">
+                                </td>
+                                <td><button class="btn btn-danger" onclick="return cancel()" style="width: 100%;">Hủy</button>
+                                </td>
 
-                <p>
-                        <label for="">Giá sản phẩm: </label>
-                        <input type="number" placeholder="Giá" name="price">
-                </p>
-
-                <p>
-                        <label for="">Giá khuyến mãi: </label>
-                        <input type="number" placeholder="Giá khuyến mãi" name="specialPrice">
-                </p>
-                <p>
-                        <input type="submit" value="Thêm sản phẩm mới">
-                </p>
+                        </tr>
+                        </table>
         </form>
-
-        <div style="color: red;">
+        <hr>
+        <div style="color: red; text-align: center; margin-bottom: 20px;">
                 <%=error && error%>
         </div>
         <table border="1" style="margin: 0px auto;">
                 <tr style="text-align: center;">
                         <th>Idex</th>
+                        <th>Ảnh</th>
                         <th>Tên Sản Phẩm</th>
                         <th>Giá</th>
                         <th>Giá Khuyến Mãi</th>
                         <th>Đánh Giá</th>
                         <th>Thao Tác</th>
                 </tr>
-                <% for (let product of products) { let i=1 %>
+                <% let i=1; for (let product of products) { %>
                         <tr>
                                 <td>
                                         <%=i%>
                                 </td>
                                 <td>
+                                        <img width="60" height="60" src="../images/products/<%=product.image%>" alt="Không có ảnh">
+                                        </td>
+                                        <td>
                                         <%=product._id%>
                                 </td>
                                 <td>
@@ -59,13 +90,16 @@
                                         <%=product.rating%>
                                 </td>
                                 <td>
-                                        <a class="btn btn-success" href="">Update</a>
-                                        <a class="btn btn-danger" href="/product/delete/<%=product._id%>" onclick='confirm("Bạn muốn xóa sản phẩm này sao?")' href="">Delete</a>
+                                        <a class="btn btn-success"
+                                                onclick='return update("<%=product._id%>", "<%=product.price%>", "<%=product.specialPrice%>", "<%=product.rating%>", "<%=product.image%>")'
+                                                href="">Update</a>
+                                        <a class="btn btn-danger" href="/product/delete/<%=product._id%>" onclick='confirm("Bạn muốn xóa sản phẩm này sao?")'
+                                                href="">Delete</a>
                                 </td>
                         </tr>
                         <% i++} %>
         </table>
-        <script>
+        <script src="../js/product-service.js">
         </script>
 </body>
 

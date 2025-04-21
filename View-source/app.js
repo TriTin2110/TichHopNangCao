@@ -1,12 +1,14 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import { userRoute, productRoute, orderRoute } from './routes/index.js'
+import { userRoute, orderRoute } from './routes/index.js'
+import { productRoute, insert, update } from './routes/Product.js'
 import { writeLog, MessageType } from './util/WriteLog.js'
 import connectToDB from './database/mongodb.js'
 import Exception from './exceptions/Exceptions.js'
 import bodyParser from 'body-parser'
 import { fileURLToPath } from 'url'
 import path from 'path'
+import multer from 'multer'
 
 dotenv.config()
 
@@ -15,6 +17,21 @@ const _filename = fileURLToPath(
         import.meta.url) //Đường dẫn đến file hiện tại
 const _dirname = path.dirname(_filename) //Đường dẫn đến file hiện tại
 
+//Cấu hình folder lưu trữ image
+const storage = multer.diskStorage(
+    {
+        destination: (req, file, cb) => {
+            cb(null, path.join(_dirname, '../views/images/products'))
+        },
+        filename: (req, file, cb) => {
+            cb(null, Date.now() + '-' + file.originalname)
+        }
+    }
+)
+const upload = multer({ storage: storage })
+//Truyền upload vào hàm post của ProductRoute
+insert(upload)
+update(upload)
 app.set('view engine', 'ejs')
 
 app.use(bodyParser.urlencoded({ extended: true }))

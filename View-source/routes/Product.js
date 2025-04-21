@@ -2,15 +2,22 @@ import { productController } from '../controllers/index.js'
 import express from 'express'
 
 let productRoute = express()
-
 //View
 productRoute.get('/service', productController.redirectToService)
 
 productRoute.get('/', productController.getAll)
 productRoute.get('/:name', productController.getById)
-productRoute.post('/', productController.insert.bind(productController))
-productRoute.get('/delete/:name', productController.remove.bind(productController))
-productRoute.put('/:name', productController.update.bind(productController))
+//upload.single('image'): Đây là middleware của multer để xử lý upload 1 file duy nhất
+function insert(upload) {
+        productRoute.post('/', upload.single('image'), productController.insert)
+}
 
-export {productRoute}
+function update(upload) {
+        productRoute.post('/update/:name', upload.single('image'), productController.update)
+}
+
+productRoute.get('/delete/:name', productController.remove)
+
+
+export { productRoute, insert, update }
 

@@ -31,7 +31,7 @@ class ProductController {
                         res.redirect("/product/service?error=Sản phẩm đã tồn tại!")
                 else {
                         try {
-                                product = { _id, price, specialPrice, rating }
+                                product = { _id, price, specialPrice, rating, image }
                                 await productRepository.insert(product)
                                 res.redirect("/product/service")
                         } catch (error) {
@@ -41,14 +41,20 @@ class ProductController {
         }
 
         async update(req, res) {
-                const _id = req.params.name
-                const { price, specialPrice, rating } = req.body
-                let product = { _id, price, specialPrice, rating }
-                product = await productRepository.update(_id, product)
-                if (!product)
-                        res.redirect("/product/service?error=Sản phẩm không tồn tại trong danh sách!")
-                else
-                        res.redirect("/product/service")
+                try {
+
+                        const _id = req.params.name
+                        const { price, specialPrice, rating } = req.body
+                        const image = (!req.file) ? req.body.oldImage : req.file.filename
+                        let product = { _id, price, specialPrice, image, rating }
+                        product = await productRepository.update(_id, product)
+                        if (!product)
+                                res.redirect("/product/service?error=Sản phẩm không tồn tại trong danh sách!")
+                        else
+                                res.redirect("/product/service")
+                } catch (error) {
+                        console.error(error)
+                }
         }
 
         async remove(req, res) {
