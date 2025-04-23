@@ -25,6 +25,7 @@ class ProductController {
         async insert(req, res) {
                 let { _id, price, specialPrice } = req.body
                 let products = await productRepository.findAll()
+                const image = req.file.filename
                 const rating = 0
                 let product = await productRepository.findById(_id)
                 if (product)
