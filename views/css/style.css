@@ -857,3 +857,23 @@ footer a:hover {
 .copyright a:hover {
     color: #000;
 }
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    white-space: nowrap;
+}
+
+.left_part {
+    text-align: center;
+}
+
+.rating-desc {
+    font-size: 14px;
+    color: #555;
+    margin-top: 4px;
+}
+
+p.des {
+    position: absolute;
+    bottom: 29px;
+    font-size: 16px;
+}

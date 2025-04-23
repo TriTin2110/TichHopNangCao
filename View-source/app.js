@@ -32,7 +32,7 @@ const upload = multer({ storage: storage })
 //Truyền upload vào hàm post của ProductRoute
 insert(upload)
 update(upload)
-app.set('view engine', 'ejs')
+// app.set('view engine', 'ejs') 
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(_dirname, '../views'))) //khai báo cho express biết nơi phục vụ file tĩnh có trong thư mục views
