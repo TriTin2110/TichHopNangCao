@@ -22,12 +22,11 @@ class OrderController {
         }
 
         async insert(req, res) {
-                let { fullName, address, products } = req.body
+                let { fullName, phone, address, products, total } = req.body
                 let _id = Date.now() + "-" + fullName
-                let status = 'pending'
+                let status = 'Đang Xử Lý'
                         try {
-                                let total = await orderMiddleWare.totalPriceHandle(products)
-                                let order = { _id, fullName, address, products, status, total }
+                                let order = { _id, fullName, phone, address, products, status, total }
                                 orderRepository.insert(order)
                                 res.send(order)
                         } catch (error) {
@@ -37,10 +36,9 @@ class OrderController {
 
         async update(req, res) {
                 const _id = Number.parseInt(req.params.id)
-                let { fullName, address, products, status } = req.body
+                let { fullName, phone, address, products, status, total } = req.body
                 try {
-                        let total = await orderMiddleWare.totalPriceHandle(products)
-                        let order = { _id, fullName, address, products, status, total }
+                        let order = { _id, fullName, phone, address, products, status, total }
                         let result = orderRepository.update(_id, order)
                         if (!result)
                                 res.send('Đơn hàng không tồn tại!')

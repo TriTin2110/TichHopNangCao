@@ -37,6 +37,10 @@
                 .product-value {
                         float: right;
                 }
+
+                tr {
+                        vertical-align: top;
+                }
         </style>
 </head>
 <!-- body -->
@@ -91,19 +95,22 @@
         <div class="collectipn_section_3 layout_padding">
                 <div class="container">
                         <div style="background-color: whitesmoke;">
-                                <table>
-                                        <tr>
+                                <table id="user-table">
+                                        <tr data-fullname="<%=user.fullName%>">
+                                                <td>Tên liên hệ: </td>
                                                 <th>
                                                         <%=user.fullName%>
                                                 </th>
                                         </tr>
                                         <tr>
-                                                <th>
+                                                <td>Địa chỉ: </td>
+                                                <th class="address">
                                                         <%=user.address%>
                                                 </th>
                                         </tr>
                                         <tr>
-                                                <th>
+                                                <td>Điện thoại: </td>
+                                                <th class="phone">
                                                         <%=user.phone%>
                                                 </th>
                                         </tr>
@@ -112,17 +119,25 @@
                         <div class="racing_shoes" style="background-color: white;">
                                 <form action="" method="post">
                                         <div class="row" style="margin-left: 0px; margin-right: 0px;">
-                                                <table>
+                                                <table style="height: 300px;">
                                                         <% for(let product of order.products){ %>
-                                                                <tr>
+                                                                <tr class="order-detail">
                                                                         <td rowspan="5"><img
                                                                                         src="../images/products/<%=product.p.image%>"
                                                                                         alt=""></td>
                                                                 </tr>
-                                                                <tr>
+                                                                <tr data-id="<%=product.p._id%>">
                                                                         <td>Tên: </td>
-                                                                        <td class="product-value">
+                                                                        <td class="product-value id">
                                                                                 <%=product.p._id%>
+                                                                        </td>
+                                                                </tr>
+                                                                <tr data-amount="<%=product.amount%>" style="margin-bottom: 20px;">
+                                                                        <td>
+                                                                                Số lượng:
+                                                                        </td>
+                                                                        <td class="product-value amount">
+                                                                                <%=product.amount%>
                                                                         </td>
                                                                 </tr>
                                                                 <tr>
@@ -137,27 +152,24 @@
                                                                                 <%=product.p.specialPrice%>
                                                                         </td>
                                                                 </tr>
-                                                                <tr style="margin-bottom: 20px;">
-                                                                        <td>
-                                                                                Số lượng:
-                                                                        </td>
-                                                                        <td class="product-value">
-                                                                                <%=product.amount%>
+                                                                <tr>
+                                                                        <td colspan="3">
+                                                                                <hr>
                                                                         </td>
                                                                 </tr>
                                                                 <%}%>
                                                 </table>
                                         </div>
-                                        <hr>
+                                        <hr style="border-color: black;">
                                         <div>
                                                 <div style="float: left; margin-left: 20px;">
-                                                        Tổng tiền là: <strong>
+                                                        Tổng tiền là: <strong id="total">
                                                                 <%=order.total%>
                                                         </strong>
                                                 </div>
                                         </div>
                                         <div style="float: right; margin-right: 20px;">
-                                                <input class="btn btn-success" type="submit" value="Thanh toán">
+                                                <button onclick="return checkout()" class="btn btn-success" type="button">Thanh toán</button>
                                         </div>
                                 </form>
                         </div>
@@ -264,6 +276,41 @@
                         Nhóm 3
                 </div>
         </footer>
+<script>
+        function checkout() {
+                let fullName, phone, address
+                let products = []
+                let userRows = document.querySelectorAll("#user-table tr")
+                for (let row of userRows) {
+                        fullName = row.dataset.fullname
+                        row = row.nextElementSibling
+                        address = row.querySelector(".address").innerText
+
+                        phone = row.nextElementSibling.querySelector(".phone").innerText
+                        break
+                }
+
+                let orderRows = document.querySelectorAll(".order-detail")
+                let productId, amount
+                for (let row of orderRows) {
+                        row = row.nextElementSibling //Bỏ qua tr img
+                        productId = row.querySelector(".id").innerText
+                        amount = row.nextElementSibling.querySelector(".amount").innerText
+                        products.push({ productId, amount })
+                        continue
+                }
+
+                let total = Number.parseInt(document.getElementById("total").innerText)
+                console.log(total)
+                fetch('/order', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ fullName, address, phone, products, total })
+                })
+                return false;
+
+        }
+</script>
 </body>
 
 </html>
