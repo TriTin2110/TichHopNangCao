@@ -22,14 +22,13 @@ class OrderMiddleWare {
                         let p = await productRepository.findById(productId)
                         if (p) {
                                 amount = product.amount
-                                console.log(amount)
+                                p.amount -= amount
+                                productRepository.update(productId, p)
+                                
                                 product = p
                                 product.amount = amount
-                                console.log(product)
                                 products.push(product)
-                                p.amount -= amount
-                                console.log(p)
-                                productRepository.update(productId, p)
+                                
                         }
                 }
                 return products
