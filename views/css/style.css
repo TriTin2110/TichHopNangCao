@@ -211,7 +211,7 @@ button {
 }
 
 .layout_padding {
-     padding-top: 90px;
+    padding-top: 20px;
      padding-bottom: 90px;
 }
 
@@ -365,11 +365,8 @@ body{
 }
 .carousel-indicators li{
     display:block; margin-bottom:5px; border:1px solid #00a199; 
-    margin-bottom: 5px;}
-<<<<<<< HEAD
-=======
-    
->>>>>>> 36c988292624b043f56be4bd711930602ecd487b
+    margin-bottom: 5px;
+    }
 
 .carousel-indicators li.active{
     margin-bottom:5px; background:#00a199;
@@ -545,7 +542,7 @@ body{
     float: left;
     background-color: #ffffff;
     height: auto;
-    padding: 20px 20px 20px 0px;
+    padding: 5px;
     margin-top: 15px;
     margin-bottom: 15px;
 }
@@ -557,6 +554,7 @@ body{
 	color: #000;
 	text-align: center;
     margin-left: 0px;
+    height: 90px;
 }
 .shoes_icon{
 	width: 100%;
@@ -577,11 +575,13 @@ body{
 } 
 
 .left_part ul{ margin: 0px; padding: 0px; }
-.left_part li{ float: left; padding-left: 10px; }
-.right_part{ width: 40%; float: left; }
+.left_part li {
+    float: left;
+    padding-left: 10px;
+}
 .shoes_price{ 
 	width: 100%; 
-	float: left; 
+    float: right;
 	font-size: 22pt; 
 	color: #0f0d10; 
 	text-align: right;

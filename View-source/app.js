@@ -11,6 +11,7 @@ import path from 'path'
 import multer from 'multer'
 import session from 'express-session'
 import formatToVND from './util/NumberFormat.js'
+import { productRepository } from './repositories/index.js'
 
 
 dotenv.config()
@@ -54,6 +55,13 @@ app.use('/user', userRoute);
 app.use('/product', productRoute);
 app.use('/order', orderRoute);
 
+app.get('/', async (req, res) => {
+    let products
+    if (!req.session.productsInDB) {
+        products = await productRepository.findAll()
+    }
+    res.render('./ejs/index.ejs', { products: products.slice(0, 6) })
+})
 
 app.listen(8080, async() => {
     try {
