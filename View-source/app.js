@@ -10,6 +10,8 @@ import { fileURLToPath } from 'url'
 import path from 'path'
 import multer from 'multer'
 import session from 'express-session'
+import formatToVND from './util/NumberFormat.js'
+
 
 dotenv.config()
 
@@ -33,7 +35,12 @@ const upload = multer({ storage: storage })
 //Truyền upload vào hàm post của ProductRoute
 insert(upload)
 update(upload)
-// app.set('view engine', 'ejs')
+app.set('view engine', 'ejs')
+
+app.use((req, res, next) => {
+    res.locals.formatToVND = formatToVND
+    next()
+})
 
 app.use(session({
     secret: "TichHopNangCao",

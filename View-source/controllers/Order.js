@@ -1,6 +1,6 @@
 import { orderRepository } from '../repositories/index.js'
 import { orderMiddleWare } from '../middle-ware/index.js'
-import { userRepository } from '../repositories/index.js'
+import { productRepository, userRepository } from '../repositories/index.js'
 
 class OrderController {
         async getAll(req, res) {
@@ -25,13 +25,16 @@ class OrderController {
                 let { fullName, phone, address, products, total } = req.body
                 let _id = Date.now() + "-" + fullName
                 let status = 'Đang Xử Lý'
-                        try {
-                                let order = { _id, fullName, phone, address, products, status, total }
-                                orderRepository.insert(order)
-                                res.send(order)
-                        } catch (error) {
-                                console.error(error)
-                        }
+                try {
+                        let order = { _id, fullName, phone, address, products, status, total }
+                        orderRepository.insert(order)
+                        products = await orderMiddleWare.updateProduct(products)
+                        req.session.order = { products, status, total }
+                        req.session.user = { _id, fullName, phone, address }
+                        res.json({ redirect: '/order/show-thank-you' })
+                } catch (error) {
+                        console.error(error)
+                }
         }
 
         async update(req, res) {
@@ -84,6 +87,13 @@ class OrderController {
         async showConfirm(req, res) {
                 let { order, user } = await req.session.order
                 res.render('./ejs/confirm-order.ejs', { order, user })
+        }
+
+        async showThankYouPage(req, res) {
+                let order = await req.session.order
+                let user = await req.session.user
+                let products = await order.products
+                res.render('./ejs/thank-you-for-shopping.ejs', { order, products, user })
         }
 }
 

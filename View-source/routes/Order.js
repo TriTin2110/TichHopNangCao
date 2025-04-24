@@ -5,6 +5,7 @@ let orderRoute = express()
 
 orderRoute.get('/show-cart', orderController.showCart)
 orderRoute.get('/show-confirm', orderController.showConfirm)
+orderRoute.get('/show-thank-you', orderController.showThankYouPage)
 
 orderRoute.get('/', orderController.getAll)
 orderRoute.get('/:id', orderController.getById)
