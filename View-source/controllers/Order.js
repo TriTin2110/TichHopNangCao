@@ -1,5 +1,6 @@
 import { orderRepository } from '../repositories/index.js'
 import { orderMiddleWare } from '../middle-ware/index.js'
+import { userRepository } from '../repositories/index.js'
 
 class OrderController {
         async getAll(req, res) {
@@ -21,20 +22,17 @@ class OrderController {
         }
 
         async insert(req, res) {
-                let { _id, fullName, address, products, status } = req.body
-                let order = await orderRepository.findById(Number.parseInt(_id))
-                if (order)
-                        res.send('Đơn hàng này đã tồn tại!')
-                else { 
+                let { fullName, address, products } = req.body
+                let _id = Date.now() + "-" + fullName
+                let status = 'pending'
                         try {
                                 let total = await orderMiddleWare.totalPriceHandle(products)
-                                order = { _id, fullName, address, products, status, total }
+                                let order = { _id, fullName, address, products, status, total }
                                 orderRepository.insert(order)
                                 res.send(order)
                         } catch (error) {
                                 console.error(error)
                         }
-                }
         }
 
         async update(req, res) {
@@ -64,6 +62,30 @@ class OrderController {
                 } catch (error) {
                         console.error(error)
                 }
+        }
+
+        async confirmOrder(req, res) {
+                try {
+                        let { _idUser, products } = req.body
+                        let user = await userRepository.findById(_idUser)
+                        let totalResult = await orderMiddleWare.totalPriceHandle(products)
+                        products = totalResult.productsResult
+                        let total = totalResult.total
+                        let order = { products, total }
+                        req.session.order = { order, user }
+                        res.json({ redirect: '/order/show-confirm' })
+                } catch (error) {
+                        console.error(error)
+                }
+        }
+
+        showCart(req, res) {
+                res.render('./ejs/shoppingcart.ejs')
+        }
+
+        async showConfirm(req, res) {
+                let { order, user } = await req.session.order
+                res.render('./ejs/confirm-order.ejs', { order, user })
         }
 }
 

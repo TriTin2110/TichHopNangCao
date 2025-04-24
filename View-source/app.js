@@ -9,6 +9,7 @@ import bodyParser from 'body-parser'
 import { fileURLToPath } from 'url'
 import path from 'path'
 import multer from 'multer'
+import session from 'express-session'
 
 dotenv.config()
 
@@ -32,14 +33,20 @@ const upload = multer({ storage: storage })
 //Truyền upload vào hàm post của ProductRoute
 insert(upload)
 update(upload)
-// app.set('view engine', 'ejs') 
+// app.set('view engine', 'ejs')
 
+app.use(session({
+    secret: "TichHopNangCao",
+    resave: false,
+    saveUninitialized: false
+}))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(_dirname, '../views'))) //khai báo cho express biết nơi phục vụ file tĩnh có trong thư mục views
 app.use(bodyParser.json())
 app.use('/user', userRoute);
 app.use('/product', productRoute);
 app.use('/order', orderRoute);
+
 
 app.listen(8080, async() => {
     try {

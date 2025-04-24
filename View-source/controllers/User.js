@@ -28,13 +28,13 @@ class UserController {
     }
 
     async insert(req, res) {
-        const { _id, password, fullName, phone, email } = req.body
+        const { _id, password, fullName, phone, email, address } = req.body
         let user = await userRepository.findById(_id)
         if (user) {
             res.send('Tài khoản đã tồn tại')
         } else {
             try {
-                user = { _id, password, fullName, phone, email }
+                user = { _id, password, fullName, phone, email, address }
                 await userRepository.insert(user)
                 res.send(user)
             } catch (error) {
@@ -46,8 +46,8 @@ class UserController {
 
     async update(req, res) {
         let _id = req.params.name
-        let { password, fullName, phone, email } = req.body
-        let user = { password, fullName, phone, email }
+        let { password, fullName, phone, email, address } = req.body
+        let user = { password, fullName, phone, email, address }
         user = await userRepository.update(_id, user)
         if (!user)
             res.send('Tài khoản không tồn tại!')

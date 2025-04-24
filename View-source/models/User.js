@@ -19,6 +19,9 @@ const UserModel = mongoose.model('User', new Schema({
 
         email: {
                 type: String,
+        },
+        address: {
+                type: String
         }
 }))
 export default UserModel
