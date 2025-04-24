@@ -152,7 +152,7 @@ a,
 }
 
 img {
-     max-width: 100%;
+     max-width: 80%;
      height: auto;
 }
 
@@ -607,6 +607,36 @@ body{
     background-color: white;
 }
 
+button.buy_text {
+    width: 40px;
+    height: 40px;
+    background-color: #2c2c2c;
+    color: white;
+    border-radius: 8px;
+    display: flex
+;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    font-size: 16px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* căn giữa theo chiều ngang */
+    gap: 20px; /* khoảng cách giữa các button */
+  }
+  
+  .buy_now_bt {
+    display: inline-block;
+  }
+  
+  .buy_text {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+  }
+
 
 .contact_section{
 	width: 100%;
@@ -876,4 +906,8 @@ p.des {
     position: absolute;
     bottom: 29px;
     font-size: 16px;
+}
+
+.unique {
+    max-width: 80%;
 }
