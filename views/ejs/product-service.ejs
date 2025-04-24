@@ -6,27 +6,35 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
         <link rel="stylesheet" href="../css/bootstrap.min.css">
-        <style>
-                tr {
-                        margin-bottom: 10px;
-                }
-        </style>
 </head>
 
 <body>
+        <h5 style="text-align: center;"><strong style="color: red;">Lưu ý:</strong> tất cả các trường phải được điền đầy đủ
+                thông tin trước khi
+                insert/update</h5>
         <form id="my-form" action="/product" method="post" enctype="multipart/form-data">
-                <table style="margin:20px auto; height: 200px;">
+                <table style="margin:20px auto; height: 300px;">
                         <tr>
                                 <td>Tên sản phẩm:</td>
-                                <td><input type="text" placeholder="Tên" name="_id" id="_id"></td>
+                                <td><input type="text" placeholder="Tên" name="_id" id="_id" required></td>
                         </tr>
                         <tr>
                                 <td>Giá sản phẩm:</td>
-                                <td><input type="number" placeholder="Giá" name="price" id="price"></td>
+                                <td><input type="number" placeholder="Giá" name="price" id="price" required></td>
                         </tr>
                         <tr>
-                                <td>Giá khuyến mãi:</td>
-                                <td><input type="number" placeholder="Giá khuyến mãi" id="specialPrice" name="specialPrice">
+                                <td>Giá khuyến mãi:
+                                        <div style="color: gray; font-size: 10px; word-wrap: break-word; width: 90%;">
+                                                (<strong style="color: red;">*</strong>) Sản phẩm không khuyến mãi sẽ có
+                                                giá
+                                                khuyến mãi là 0</div>
+                                </td>
+                                <td><input type="number" placeholder="Giá khuyến mãi" id="specialPrice" name="specialPrice" required>
+                                </td>
+                                </tr>
+                                <tr>
+                                        <td>Số lượng:</td>
+                                        <td><input type="number" placeholder="Số lượng" id="amount" name="amount" required>
                                 </td>
                         </tr>
                         <tr>
@@ -34,10 +42,14 @@
                                 <td style="display: flex; align-items: center;">
                                         <span id="image-name"
                                                 style="display: inline-block;width: 85px;overflow: hidden !important;white-space: nowrap;"></span>
-                                        <button class="btn btn-success" onclick="return activeFileInput()">Tải file mới</button>
+                                        <button class="btn btn-success" onclick="return activeFileInput()">Tải ảnh
+                                                mới</button>
                                         <input style="display: none;" type="file" id="image" name="image">
                                         <input type="hidden" name="oldImage" id="old-image">
                                 </td>
+                        </tr>
+                        <tr style="color: red;">
+                                <td><h6><%=errorInput && errorInput%></h6></td>
                         </tr>
                         <tr style="display: none;" id="rating-record">
                                 <td>Đánh giá:</td>
@@ -53,7 +65,7 @@
                                 </td>
 
                         </tr>
-                        </table>
+                </table>
         </form>
         <hr>
         <div style="color: red; text-align: center; margin-bottom: 20px;">
@@ -66,6 +78,7 @@
                         <th>Tên Sản Phẩm</th>
                         <th>Giá</th>
                         <th>Giá Khuyến Mãi</th>
+                        <th>Số lượng</th>
                         <th>Đánh Giá</th>
                         <th>Thao Tác</th>
                 </tr>
@@ -87,11 +100,14 @@
                                         <%=product.specialPrice%>
                                 </td>
                                 <td>
+                                        <%=product.amount%>
+                                                </td>
+                                                <td>
                                         <%=product.rating%>
                                 </td>
                                 <td>
                                         <a class="btn btn-success"
-                                                onclick='return update("<%=product._id%>", "<%=product.price%>", "<%=product.specialPrice%>", "<%=product.rating%>", "<%=product.image%>")'
+                                                onclick='return update("<%=product._id%>", "<%=product.price%>", "<%=product.specialPrice%>", "<%=product.rating%>", "<%=product.image%>", "<%=product.amount%>")'
                                                 href="">Update</a>
                                         <a class="btn btn-danger" href="/product/delete/<%=product._id%>" onclick='confirm("Bạn muốn xóa sản phẩm này sao?")'
                                                 href="">Delete</a>

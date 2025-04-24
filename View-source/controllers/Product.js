@@ -23,20 +23,27 @@ class ProductController {
         }
 
         async insert(req, res) {
-                let { _id, price, specialPrice } = req.body
+                let { _id, price, specialPrice, amount } = req.body
                 let products = await productRepository.findAll()
-                const image = req.file.filename
-                const rating = 0
-                let product = await productRepository.findById(_id)
-                if (product)
-                        res.redirect("/product/service?error=Sản phẩm đã tồn tại!")
+                let image = req.file
+                if (!image) {
+                        res.redirect("/product/service?errorInput=Vui lòng chọn ảnh sản phẩm!")
+                }
                 else {
-                        try {
-                                product = { _id, price, specialPrice, rating, image }
-                                await productRepository.insert(product)
-                                res.redirect("/product/service")
-                        } catch (error) {
-                                console.error(error)
+
+                        image = image.filename
+                        const rating = 0
+                        let product = await productRepository.findById(_id)
+                        if (product)
+                                res.redirect("/product/service?error=Sản phẩm đã tồn tại!")
+                        else {
+                                try {
+                                        product = { _id, price, specialPrice, rating, image, amount }
+                                        await productRepository.insert(product)
+                                        res.redirect("/product/service")
+                                } catch (error) {
+                                        console.error(error)
+                                }
                         }
                 }
         }
@@ -45,9 +52,9 @@ class ProductController {
                 try {
 
                         const _id = req.params.name
-                        const { price, specialPrice, rating } = req.body
+                        const { price, specialPrice, rating, amount } = req.body
                         const image = (!req.file) ? req.body.oldImage : req.file.filename
-                        let product = { _id, price, specialPrice, image, rating }
+                        let product = { _id, price, specialPrice, image, rating, amount }
                         product = await productRepository.update(_id, product)
                         if (!product)
                                 res.redirect("/product/service?error=Sản phẩm không tồn tại trong danh sách!")
@@ -67,10 +74,11 @@ class ProductController {
                         res.redirect("/product/service")
         }
 
-        async redirectToService(req, res, myError) {
+        async redirectToService(req, res) {
                 let error = req.query.error
+                let errorInput = req.query.errorInput
                 let products = await productRepository.findAll()
-                res.render('./ejs/product-service.ejs', { products: products, error: error })
+                res.render('./ejs/product-service.ejs', { products: products, error: error, errorInput: errorInput })
         }
 
 

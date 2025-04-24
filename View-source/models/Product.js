@@ -17,6 +17,9 @@ const ProductModel = mongoose.model('Product', new Schema({
         },
         image: {
                 type: Schema.Types.String
+        },
+        amount: {
+                type: Schema.Types.Int32
         }
 })) 
 export default ProductModel
