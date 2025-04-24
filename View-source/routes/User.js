@@ -6,8 +6,8 @@ let userRoute = express()
 userRoute.get('/', userController.getAll)
 userRoute.post('/findByUsername', userController.getByUsername)
 userRoute.post('/', userController.insert)
-userRoute.put('/:name', userController.update)
-userRoute.delete('/:name', userController.remove)
+userRoute.post('/update', userController.update)
+userRoute.post('/:name', userController.remove)
 
 userRoute.get('/login-page', (req, res) => {
     res.render('./ejs/login.ejs', { error: null })

@@ -28,9 +28,12 @@
       <link rel="stylesheet" href="../css/owl.carousel.min.css">
       <link rel="stylesheet" href="../css/owl.theme.default.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-      <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+      <style>
+	.form-control{
+		margin-bottom: 20px;
+	}
+      </style>
    </head>
    <!-- body -->
    <body class="main-layout">
@@ -80,12 +83,18 @@
     				</div>  
     				<div class="col-md-4">
 			<div class="number_text"><strong> <span style="color: #0a0506; font-size: 20px; ">Tên: </span><span
-						style="color: #030303; font-size: 20px; ">Nguyễn Định Hoàng Tâm <br>Ngày sinh: 30/09/2003</span>
+						style="color: #030303; font-size: 20px; "><%=user.fullName%></span>
 				</strong></div>
-                        <div class="sale_text"><strong><span style="color: #030303; font-size: 20px; "  >Lớp: DHCNTT17CTT</span></strong></div>
-    					<div class="sale_text"><strong><span style="color: #030303; font-size: 20px; "  >Quê quán: Tiền Giang</span></strong></div>
+				<div class="sale_text"><strong><span style="color: #030303; font-size: 20px; ">Điện thoại: <%=user.phone%>
+								</span></strong></div>
+    					<div class="sale_text"><strong><span style="color: #030303; font-size: 20px; "  >Địa chỉ: <%=user.address%></span></strong></div>
+					<div><strong><span style="color: #030303; font-size: 20px; ">Địa chỉ email: <%=user.email%>
+									</span></strong></div>
     				</div>
     			</div>
+			<div style="float: right; padding-right: 23px;">
+				<button class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter" style="width: 335px;">Thay đổi thông tin</button>
+			</div>
     		</div>
     	</div>
     </div>
@@ -188,6 +197,36 @@
 		</div>
 	</footer>
 	
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Chỉnh sửa thông tin</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="./user/update" method="post" id="update-form">
+						<div class="form-group">
+							<input type="hidden" name="_id" value="<%=user._id%>">
+							<input type="text" class="form-control" placeholder="Họ Tên" name="fullName" value="<%=user.fullName%>">
+							<input type="text" class="form-control" placeholder="Số Điện Thoại" name="phone" value="<%=user.phone%>">
+							<input type="text" class="form-control" placeholder="Địa Chỉ" name="address" value="<%=user.address%>">
+							<input type="email" class="form-control" placeholder="Email" name="email" value="<%=user.email%>">
+						</div>
+					</form>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+					<button type="button" onclick="sendForm()" class="btn btn-primary">Lưu thay đổi</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 
 	
@@ -235,7 +274,11 @@
                 $(this).off("touchmove");
             });
         });
-		
+	
+	function sendForm() {
+		let updateForm = document.getElementById('update-form')
+		updateForm.submit()
+	}
       </script>
    </body>
 </html>
