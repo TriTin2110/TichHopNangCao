@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+                /* Ẩn modal ban đầu */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+/* Nội dung modal */
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Nút đóng */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+        </style>
+</head>
+<body>
+        <!-- Nút mở modal -->
+        <button id="openModal">Mở thông báo</button>
+        
+        <!-- Modal -->
+        <div id="myModal" class="modal">
+                <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>Đây là nội dung thông báo modal!</p>
+                </div>
+        </div>
+
+</body>
+<script>
+        // Lấy phần tử
+const modal = document.getElementById("myModal");
+const btn = document.getElementById("openModal");
+const span = document.querySelector(".close");
+
+// Mở modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// Đóng modal khi click nút X
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// Đóng modal khi click bên ngoài
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+</script>
+</html>

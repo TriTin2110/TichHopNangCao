@@ -31,6 +31,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
         media="screen">
     <style>
+        td{
+            padding: 10px;
+        }
     </style>
 </head>
 <!-- body -->
@@ -38,37 +41,7 @@
 <body class="main-layout">
     <!-- header section start -->
     <div class="header_section">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-1">
-                    <div class="logo"><a href="#"><img style="height: 42px;" src="../images/logo.png"></a></div>
-                </div>
-                <div class="col-sm-9">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                            <div class="navbar-nav">
-                                <a class="nav-item nav-link" style="width: 160px;" href="index.html">Trang chủ</a>
-                                <a class="nav-item nav-link" style="width: 150px;" href="collection.html">Bộ sưu tập</a>
-                                <a class="nav-item nav-link" style="width: 140px;" href="shoes.html">Mẫu giày</a>
-                                <a class="nav-item nav-link racing" style="width: 180px;" id="Racingboots"
-                                    href="racing boots.html">Giày
-                                    đua xe</a>
-                                <a class="nav-item nav-link" style="width: 120px;" href="contact.html">Liên hệ</a>
-                                <a class="nav-item nav-link" style="width: 180px;" href="login.html">Đăng nhập</a>
-                                <a class="nav-item nav-link last" href="#"><img src="../images/search_icon.png"></a>
-                                <a class="nav-item nav-link last" href="contact.html"><img
-                                        src="../images/shop_icon.png"></a>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
+        <%- include('./component/header.ejs') %>
     </div>
     <!-- new collection section start -->
     <div class="collection_text">Giỏ hàng của bạn</div>
@@ -76,121 +49,46 @@
         <div class="collectipn_section_3 layout_padding">
             <div class="container">
                 <div class="racing_shoes">
-                        <div class="row" style="margin-left: 20px; margin-right: 0px;">
-                            <table id="cart-table">
-                                <tr data-id="Giày Thể Thao Biti's Nam BSM003900">
-                                    <td>Giày Thể Thao Biti's Nam BSM003900</td>
-                                    <td><input type="number" id="amount"></td>
-                                </tr>
-                                <tr data-id="Giày Thể Thao Biti's Basic Nam BSM000600">
-                                    <td>Giày Thể Thao Biti's Basic Nam BSM000600</td>
-                                    <td><input type="number" id="amount"></td>
-                                </tr>
+                        <div class="row" style="margin-left: 20px; margin-right: 0px; height: 500px;">
+                            <table id="cart-table" style="margin: 0px auto;" border="1">
+                                <% if(!products){ %>
+                                    <div
+                                        style="width: 100%;
+                                                                                                                                background-image: url(../images/empty-cart.png);
+                                                                                                                                height: 100%;
+                                                                                                                                background-repeat: no-repeat;
+                                                                                                                                background-position: center; text-align: center;">
+                                        <h1>Giỏ Hàng Trống!</h1>
+                                    </div>
+                                    <%}else{ for(let product of products){ %>
+                                        <tr data-id="<%=product._id%>">
+                                            <td>
+                                                <img style="max-width: 200px;top: 50%;left: 50%;position: relative;transform: translate(-50%, 0px);"
+                                                    src="../images/products/<%=product.image%>" alt="">
+                                            </td>
+                                            <td style="word-wrap: break-word;max-width: 150px;">
+                                                <%=product._id%>
+                                            </td>
+                                            <td>
+                                                <%=(product.specialPrice>0)?product.specialPrice: product.price%>
+                                            </td>
+                                            <td><input type="number" id="amount" required></td>
+                                        </tr>
+                                    <%}}%>
                             </table>
                         </div>
+                        <% if(products){ %>
                         <div style="float: right; margin-right: 20px;">
                             <button onclick="sendProducts()" class="btn btn-success" type="button">Tiến hành thanh toán</button>
                         </div>
+                        <%}%>
                 </div>
             </div>
         </div>
     </div>
     <!-- new collection section end -->
     <!-- section footer start -->
-
-    <footer>
-        <div class="section_footer">
-            <div class="container">
-                <!-- Cột 1: Logo -->
-                <div class="col">
-                    <a href="#"><img src="../images/footer-logo.png" class="footer-logo"></a>
-                </div>
-
-                <!-- Cột 2: Liên hệ -->
-                <div class="col">
-                    <div class="footer-logo">
-                        <img src="../images/logo-phone.png">
-                        <span><a href="https://zalo.me/0374010392">(+84) 371040392 </a></span>
-                    </div>
-                    <div class="footer-logo">
-                        <img src="../images/logo-gmail.png">
-                        <span style="height: 20px;">tamwukong1g@gmail.com</span>
-                    </div>
-                </div>
-
-                <!-- Cột 3: Mạng xã hội -->
-                <div class="col">
-                    <div class="social_icon">
-                        <ul>
-                            <li><a href="https://www.facebook.com/share/1KDaGv5JLe/"><img
-                                        src="../images/logo-fb.png"></a>
-                            </li>
-                            <li><a href="https://x.com/pullo_shop"><img src="../images/logo-x.png"></a></li>
-                            <li><a href="https://www.instagram.com/_hoangtam3009_/"><img
-                                        src="../images/ig-logo.png"></a>
-                            </li>
-                            <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=tamwukong1g@gmail.com&su=Chủ đề email&body=Nội dung email"
-                                    target="_blank"><img src="../images/logo-google.png"></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <!-- Cột 4: Địa chỉ -->
-                <div class="col">
-                    <h3 style="color: white;">Địa chỉ</h3>
-                    <p>
-                    <div class="footer-logo">
-                        <img style="width: 40px; height: auto;" src="../images/logo-map.png" alt="Logo Map">
-                        <span><a href="https://www.google.com/maps/place/112+Lê+Thị+Hồng+Gấm">
-                                Số 112, đường Lê Thị Hồng Gấm, Mỹ Tho, Tiền Giang
-                            </a></span>
-                    </div>
-                    </p>
-                </div>
-                <!-- Cột 5: Công ty -->
-                <div class="col">
-                    <h3 style="color: white;">Công ty của chúng tôi</h3>
-                    <div class="delivery_text">
-                        <ul>
-                            <li><a href="#">Vận Chuyển</a></li>
-                            <li><a href="#">Thông tin pháp lý</a></li>
-                            <li><a href="#">Về chúng tôi</a></li>
-                            <li><a href="#">Thanh toán</a></li>
-                            <li><a href="#">Liên hệ</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Cột 6: Sản phẩm -->
-                <div class="col">
-                    <h3 style="color: white;">Sản phẩm</h3>
-                    <div class="delivery_text">
-                        <ul>
-                            <li><a href="racing boots.html">Giá đã giảm</a></li>
-                            <li><a href="shoes.html">Sản phẩm mới</a></li>
-                            <li><a href="collection.html">Bán chạy nhất</a></li>
-                            <li><a href="#">Về chúng tôi</a></li>
-                            <li><a href="introduce.html">Giới thiệu thành viên</a></li>
-                            <li><a href="sitemap.html"><button>Sitemap</button></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Cột 7: Bản tin -->
-                <div class="col">
-                    <h3 style="color: white;">Nhận thông tin mới</h3>
-                    <input type="text" class="enter_email" placeholder="Nhập email của bạn">
-                    <a href="../html/signup.html">
-                        <button class="subscribr_bt">Đăng ký</button>
-
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- Chân trang -->
-        <div class="copyright">
-            Nhóm 3
-        </div>
-    </footer>
+    <%-include('./component/footer.ejs')%>
 
     <script>
         async function sendProducts() {
@@ -203,7 +101,7 @@
                 amount = amount ?Number.parseInt(amount.value):1
                 products.push({ id, amount })
             })
-            let _idUser = 'tin'
+            let _idUser = '<%=user._id%>'
             fetch('/order/confirm', {
                 method: 'POST',
                 headers: {'Content-type': 'application/json'},
@@ -213,7 +111,6 @@
                 window.location.href = data.redirect
             })
         }
-        
     </script>
 </body>
 

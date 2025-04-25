@@ -81,7 +81,24 @@ class ProductController {
                 res.render('./ejs/product-service.ejs', { products: products, error: error, errorInput: errorInput })
         }
 
+        async redirectToProduct(req, res) {
+                let id = req.params.id
+                let product = await productRepository.findById(id)
+                let user = await req.session.user
+                res.render('./ejs/product-view.ejs', { product: product, user: user })
+        }
 
+        async addToCart(req, res) {
+                let id = req.body.id
+                let product = await productRepository.findById(id)
+                let productInSession = await req.session.productInSession
+                if (!productInSession)
+                        productInSession = []
+
+                await productInSession.push(product)
+                req.session.productInSession = productInSession
+                res.json({ notice: '' })
+        }
 }
 const productController = new ProductController()
 export default productController

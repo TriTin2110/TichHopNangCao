@@ -20,7 +20,7 @@
 	<!-- Responsive-->
 	<link rel="stylesheet" href="../css/responsive.css">
 	<!-- fevicon -->
-	<link rel="icon" href="../../images/fevicon.png" type="image/gif" />
+	<link rel="icon" href="../images/fevicon.png" type="image/gif" />
 	<!-- Scrollbar Custom CSS -->
 	<link rel="stylesheet" href="../css/jquery.mCustomScrollbar.min.css">
 	<!-- Tweaks for older IEs-->
@@ -43,54 +43,20 @@
 <body>
 	<!-- header section start -->
 	<div class="header_section">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-1">
-					<div class="logo"><a href="#"><img style="height: 42px;" src="../images/logo.png"></a></div>
-					</div>
-					<div class="col-sm-9">
-						<nav class="navbar navbar-expand-lg navbar-light bg-light">
-						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-							aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-						</button>
-						<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-							<div class="navbar-nav">
-								<a id="home" class="nav-item nav-link" style="width: 160px;" href="index.html">Trang
-									chủ</a>
-								<a class="nav-item nav-link" style="width: 150px;" href="collection.html">Bộ sưu tập</a>
-								<a class="nav-item nav-link" style="width: 140px;" href="shoes.html">Mẫu giày</a>
-								<a class="nav-item nav-link" style="width: 180px;" href="racing boots.html">Giày đua xe</a>
-								<a class="nav-item nav-link" style="width: 120px;" href="contact.html">Liên hệ</a>
-								<% if(user) { %>
-									<a class="nav-item nav-link" style="width: 180px;" href="./info">
-										<%=user._id%>
-									</a>
-								
-									<%}else{%>
-										<a class="nav-item nav-link" style="width: 180px;" href="./login">Đăng nhập</a>
-										<%}%>
-
-											<a class="nav-item nav-link last" href=""><img src="../images/search_icon.png"></a>
-											<a class="nav-item nav-link last" href="shoppingcart.html"><img src="../images/shop_icon.png"></a>
-											</div>
-											</div>
-											</nav>
-											</div>
-											</div>
-											</div>
-											<div class="banner_section">
-												<div class="container-fluid">
-													<section class="slide-wrapper">
-														<div class="container-fluid">
-															<div id="myCarousel" class="carousel slide" data-ride="carousel">
-																<!-- Indicators -->
-																<ol class="carousel-indicators">
-																	<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-																	<li data-target="#myCarousel" data-slide-to="1"></li>
-																	<li data-target="#myCarousel" data-slide-to="2"></li>
-																	<li data-target="#myCarousel" data-slide-to="3"></li>
-																</ol>
+		<%- include('./component/header.ejs') %>
+		<div class="banner_section">
+			<div class="container-fluid">
+				<section class="slide-wrapper">
+					<div class="container-fluid">
+						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+							<!-- Indicators -->
+							<ol class="carousel-indicators">
+								<li data-target="#myCarousel" data-slide-to="0"
+									class="active"></li>
+								<li data-target="#myCarousel" data-slide-to="1"></li>
+								<li data-target="#myCarousel" data-slide-to="2"></li>
+								<li data-target="#myCarousel" data-slide-to="3"></li>
+							</ol>
 
 							<!-- Wrapper for slides -->
 							<div class="carousel-inner">
@@ -132,17 +98,18 @@
 											</div>
 										</div>
 										<div class="col-sm-5">
-											<div class="shoes_img"><img src="../images/running-shoes.png">
+											<div class="shoes_img"><img
+													src="../images/running-shoes.png">
 											</div>
-											</div>
-											</div>
-											</div>
-											<div class="carousel-item">
-												<div class="row">
-													<div class="col-sm-2 padding_0">
-														<p class="mens_taital">Giày Nam
-														</p>
-														<div class="page_no">0/2</div>
+										</div>
+									</div>
+								</div>
+								<div class="carousel-item">
+									<div class="row">
+										<div class="col-sm-2 padding_0">
+											<p class="mens_taital">Giày Nam
+											</p>
+											<div class="page_no">0/2</div>
 											<p class="mens_taital_2">Giày
 												nam</p>
 										</div>
@@ -171,17 +138,18 @@
 										</div>
 										<div class="col-sm-5">
 											<div class="shoes_img">
-												<img id="img-header-2" src="../images/products/1745425946372-346k.webp">
+												<img id="img-header-2"
+													src="../images/products/1745425946372-346k.webp">
 											</div>
 										</div>
-										</div>
-										</div>
-										<div class="carousel-item">
-											<div class="row">
-												<div class="col-sm-2 padding_0">
-													<p class="mens_taital">Giày nam
-													</p>
-													<div class="page_no">0/2</div>
+									</div>
+								</div>
+								<div class="carousel-item">
+									<div class="row">
+										<div class="col-sm-2 padding_0">
+											<p class="mens_taital">Giày nam
+											</p>
+											<div class="page_no">0/2</div>
 											<p class="mens_taital_2">Giày
 												nam</p>
 										</div>
@@ -213,17 +181,18 @@
 											</div>
 										</div>
 										<div class="col-sm-5">
-											<div class="shoes_img"><img src="../images/running-shoes.png">
+											<div class="shoes_img"><img
+													src="../images/running-shoes.png">
 											</div>
-											</div>
-											</div>
-											</div>
-											<div class="carousel-item">
-												<div class="row">
-													<div class="col-sm-2 padding_0">
-														<p class="mens_taital">Giày nam
-														</p>
-														<div class="page_no">0/2</div>
+										</div>
+									</div>
+								</div>
+								<div class="carousel-item">
+									<div class="row">
+										<div class="col-sm-2 padding_0">
+											<p class="mens_taital">Giày nam
+											</p>
+											<div class="page_no">0/2</div>
 											<p class="mens_taital_2">Giày
 												nam</p>
 										</div>
@@ -258,23 +227,24 @@
 											</div>
 										</div>
 										<div class="col-sm-5">
-											<div class="shoes_img"><img src="../images/running-shoes.png">
+											<div class="shoes_img"><img
+													src="../images/running-shoes.png">
 											</div>
-											</div>
-											</div>
-											</div>
-											</div>
-											</div>
-											</div>
-											</section>
-											</div>
-											</div>
-											</div>
-											<!-- header section end -->
-											<!-- new collection section start -->
-											<div class="layout_padding collection_section">
-												<div class="container">
-													<h1 class="new_text"><strong>Bộ sưu tập mới</strong></h1>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+	<!-- header section end -->
+	<!-- new collection section start -->
+	<div class="layout_padding collection_section">
+		<div class="container">
+			<h1 class="new_text"><strong>Bộ sưu tập mới</strong></h1>
 			<p class="consectetur_text">Con người chẳng bao giờ lên kế hoạch để thất bại; chỉ đơn giản là họ
 				đã thất bại trong việc lên kế hoạch để thành công.</p>
 			<div class="collection_section_2">
@@ -282,236 +252,128 @@
 					<div class="col-md-6">
 						<div class="about-img">
 							<button class="new_bt">Mới</button>
-							<a href="../html/shoes.html" class="shoes-img"><img src="../images/products/1745425858742-345k.webp"></a>
+							<a href="../html/shoes.html" class="shoes-img"><img
+									src="../images/products/1745425858742-345k.webp"></a>
 							<p class="sport_text" style="width: 150px;">Thể thao nam</p>
-							<div class="dolar_text"><strong style="color: #f12a47;">345.000</strong> VND
+							<div class="dolar_text"><strong
+									style="color: #f12a47;">345.000</strong> VND
 							</div>
 							<div class="star_icon">
 								<ul>
-									<li><a href="#"><img src="../images/star-icon.png"></a>
+									<li><a href="#"><img
+												src="../images/star-icon.png"></a>
 									</li>
-									<li><a href="#"><img src="../images/star-icon.png"></a>
+									<li><a href="#"><img
+												src="../images/star-icon.png"></a>
 									</li>
-									<li><a href="#"><img src="../images/star-icon.png"></a>
+									<li><a href="#"><img
+												src="../images/star-icon.png"></a>
 									</li>
-									<li><a href="#"><img src="../images/star-icon.png"></a>
+									<li><a href="#"><img
+												src="../images/star-icon.png"></a>
 									</li>
-									<li><a href="#"><img src="../images/star-icon.png"></a>
+									<li><a href="#"><img
+												src="../images/star-icon.png"></a>
 									</li>
 								</ul>
-								</div>
-								</div>
-								<button class="seemore_bt"><a href="shoes.html">Xem thêm</a></button>
-								</div>
-								<div class="col-md-6">
-									<div class="about-img2">
-							<a href="../html/shoes.html" class="shoes-img2"><img src="../images/products/1745425946372-346k.webp"></a>
+							</div>
+						</div>
+						<button class="seemore_bt"><a href="shoes.html">Xem thêm</a></button>
+					</div>
+					<div class="col-md-6">
+						<div class="about-img2">
+							<a href="../html/shoes.html" class="shoes-img2"><img
+									src="../images/products/1745425946372-346k.webp"></a>
 							<p class="sport_text" style="width: 150px;">Thể thao nam</p>
-							<div class="dolar_text"><strong style="color: #f12a47;">346.000</strong> VND
+							<div class="dolar_text"><strong
+									style="color: #f12a47;">346.000</strong> VND
 							</div>
 							<div class="star_icon">
 								<ul>
-									<li><a href="#"><img src="../images/star-icon.png"></a>
+									<li><a href="#"><img
+												src="../images/star-icon.png"></a>
 									</li>
-									<li><a href="#"><img src="../images/star-icon.png"></a>
+									<li><a href="#"><img
+												src="../images/star-icon.png"></a>
 									</li>
-									<li><a href="#"><img src="../images/star-icon.png"></a>
+									<li><a href="#"><img
+												src="../images/star-icon.png"></a>
 									</li>
-									<li><a href="#"><img src="../images/star-icon.png"></a>
+									<li><a href="#"><img
+												src="../images/star-icon.png"></a>
 									</li>
-									<li><a href="#"><img src="../images/star-icon.png"></a>
+									<li><a href="#"><img
+												src="../images/star-icon.png"></a>
 									</li>
 								</ul>
-								</div>
-								</div>
-								</div>
-								</div>
-								</div>
-								</div>
-								</div>
-								<div class="collection_section">
-									<div class="container">
-										<h1 class="new_text"><strong>Chính hãng 100% ✅</strong></h1>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="collection_section">
+		<div class="container">
+			<h1 class="new_text"><strong>Chính hãng 100% ✅</strong></h1>
 			<p class="consectetur_text">Con người chẳng bao giờ lên kế hoạch để thất bại; chỉ đơn giản là họ
 				đã thất bại trong việc lên kế hoạch để thành công.</p>
 		</div>
-		</div>
-		<!-- new collection section end -->
-		<!-- New Arrivals section start -->
-		<div class="layout_padding gallery_section">
+	</div>
+	<!-- new collection section end -->
+	<!-- New Arrivals section start -->
+	<div class="layout_padding gallery_section">
 		<div class="collection_section layout_padding" style="background-color: #ff4e5b;">
 			<div class="container">
 				<h1 class="new_text"><strong>Các sản phẩm mới </strong></h1>
 			</div>
-			</div>
+		</div>
 		<div class="container">
 			<div class="row">
 				<% for(let product of products){ %>
 					<div class="col-sm-4">
 						<div class="best_shoes">
-							<p class="best_text">
-								<%=product._id%>
-							</p>
+							<a href="/product/show-product/<%=product._id%>">
+								<p class="best_text">
+									<%=product._id%>
+								</p>
 
-							<div class="shoes_icon"><img class="product-img" src="../images/products/<%=product.image%>">
-							</div>
-							<div class="star_text">
-								<div class="right_part">
-									<div class="shoes_price"><span style="color: #ff4e5b;"> <br>
-											<%=formatToVND(product.price) %>
-										</span></div>
+								<div class="shoes_icon"><img class="product-img"
+										src="../images/products/<%=product.image%>">
 								</div>
-							</div>
-							</div>
-							</div>
-							<%}%>
+								<div class="star_text">
+									<div class="right_part">
+										<div class="shoes_price">
+											<%if(product.specialPrice){%>
+												<span
+													style="color: gray;text-decoration: line-through;">
+													<%=formatToVND(product.price)
+														%>
+												</span>
+												<span
+													style="color: #ff4e5b; margin-left: 10px;">
+													<%=formatToVND(product.specialPrice)
+														%>
+												</span>
+												<%}else{%>
+													<span
+														style="color: #ff4e5b;">
+														<br>
+														<%=formatToVND(product.price)
+															%>
+													</span>
+													<%}%>
+										</div>
+									</div>
 								</div>
-								<div class="buy_now_bt">
-									<button class="buy_text">Mua
-					ngay</button>
+							</a>
+						</div>
+					</div>
+					<%}%>
 			</div>
 		</div>
-		</div>
-	<!-- section footer start -->
-	<footer>
-		<div class="section_footer">
-			<div class="container">
-				<!-- Cột 1: Logo -->
-				<div class="col">
-					<a href="#"><img src="../images/footer-logo.png" class="footer-logo"></a>
-				</div>
-				<!-- Cột 2: Liên hệ -->
-				<div class="col">
-					<div class="footer-logo">
-						<img src="../images/logo-phone.png">
-						<span><a href="https://zalo.me/0374010392">(+84) 371040392 </a></span>
-					</div>
-					<div class="footer-logo">
-						<img src="../images/logo-gmail.png">
-						<span style="height: 20px;">tamwukong1g@gmail.com</span>
-					</div>
-				</div>
-				<!-- Cột 3: Mạng xã hội -->
-				<div class="col">
-					<div class="social_icon">
-						<ul>
-							<li><a href="https://www.facebook.com/share/1KDaGv5JLe/"><img src="../images/logo-fb.png"></a></li>
-							<li><a href="https://x.com/pullo_shop"><img src="../images/logo-x.png"></a></li>
-							<li><a href="https://www.instagram.com/_hoangtam3009_/"><img src="../images/ig-logo.png"></a></li>
-							<li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=tamwukong1g@gmail.com&su=Chủ đề email&body=Nội dung email"
-									target="_blank"><img
-										src="../images/logo-google.png"></a>
-							</li>
-						</ul>
-						</div>
-						</div>
-			</div>
-			<div class="container">
-				<!-- Cột 4: Địa chỉ -->
-				<div class="col">
-					<h3 style="color: white;">Địa chỉ</h3>
-					<p>
-					<div class="footer-logo">
-						<img style="width: 40px; height: auto;" src="../images/logo-map.png" alt="Logo Map">
-						<span><a href="https://www.google.com/maps/place/112+Lê+Thị+Hồng+Gấm">
-								Số 112, đường Lê Thị Hồng Gấm, Mỹ Tho, Tiền Giang
-							</a></span>
-					</div>
-					</p>
-				</div>
-				<!-- Cột 5: Công ty -->
-				<div class="col">
-					<h3 style="color: white;">Công ty của chúng tôi</h3>
-					<div class="delivery_text">
-						<ul>
-							<li><a href="#">Vận Chuyển</a></li>
-							<li><a href="#">Thông tin pháp lý</a></li>
-							<li><a href="#">Về chúng tôi</a></li>
-							<li><a href="#">Thanh toán</a></li>
-							<li><a href="#">Liên hệ</a></li>
-						</ul>
-						</div>
-						</div>
-				<!-- Cột 6: Sản phẩm -->
-				<div class="col">
-					<h3 style="color: white;">Sản phẩm</h3>
-					<div class="delivery_text">
-						<ul>
-							<li><a href="racing boots.html">Giá đã giảm</a></li>
-							<li><a href="shoes.html">Sản phẩm mới</a></li>
-							<li><a href="collection.html">Bán chạy nhất</a></li>
-							<li><a href="#">Về chúng tôi</a></li>
-							<li><a href="introduce.html">Giới thiệu thành viên</a></li>
-							<li><a href="sitemap.html"><button>Sitemap</button></a></li>
-						</ul>
-						</div>
-						</div>
-				<!-- Cột 7: Bản tin -->
-				<div class="col">
-					<h3 style="color: white;">Nhận thông tin mới</h3>
-					<input type="text" class="enter_email" placeholder="Nhập email của bạn">
-					<a href="../html/signup.html">
-						<button class="subscribr_bt">Đăng ký</button>
-
-					</a>
-
-				</div>
-			</div>
-			</div>
-		<!-- Chân trang -->
-		<div class="copyright">
-			Nhóm 3
-		</div>
-	</footer>
-
-
-
-
-	<!-- Javascript files-->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.bundle.min.js"></script>
-	<script src="js/jquery-3.0.0.min.js"></script>
-	<script src="js/plugin.js"></script>
-	<!-- sidebar -->
-	<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script src="js/custom.js"></script>
-	<!-- javascript -->
-	<script src="js/owl.carousel.js"></script>
-	<script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-	<script>
-									$(document).ready(function () {
-										$(".fancybox").fancybox({
-											openEffect: "none",
-											closeEffect: "none"
-										});
-									});
-
-									$('#myCarousel').carousel({
-										interval: false
-									});
-
-									//scroll slides on swipe for touch enabled devices
-
-									$("#myCarousel").on("touchstart", function (event) {
-
-									var yClick = event.originalEvent.touches[0].pageY;
-									$(this).one("touchmove", function (event) {
-
-									var yMove = event.originalEvent.touches[0].pageY;
-									if (Math.floor(yClick - yMove) > 1) {
-										$(".carousel").carousel('next');
-									}
-									else if (Math.floor(yClick - yMove) < -1) {
-										$(".carousel").carousel('prev');
-									}
-								});
-									$(".carousel").on("touchend", function () {
-										$(this).off("touchmove");
-									});
-								});
-
-</script>
+	</div>
+	<%-include('./component/footer.ejs')%>
 </body>
 
 </html>

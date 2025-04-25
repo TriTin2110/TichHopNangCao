@@ -4,6 +4,8 @@ import express from 'express'
 let productRoute = express()
 //View
 productRoute.get('/service', productController.redirectToService)
+productRoute.get('/show-product/:id', productController.redirectToProduct)
+
 
 productRoute.get('/', productController.getAll)
 productRoute.get('/:name', productController.getById)
@@ -17,7 +19,7 @@ function update(upload) {
 }
 
 productRoute.get('/delete/:name', productController.remove)
-
+productRoute.post('/add-to-cart', productController.addToCart)
 
 export { productRoute, insert, update }
 
