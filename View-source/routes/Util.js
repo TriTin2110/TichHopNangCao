@@ -7,6 +7,7 @@ utilRoute.get('/', async (req, res) => {
         let products
         if (!req.session.productsInDB) {
                 products = await productRepository.findAll()
+                req.session.productsInDB = products
         }
         let user = req.session.user
         res.render('./ejs/index.ejs', { products: products.slice(0, 6), user: user })

@@ -5,7 +5,7 @@ let productRoute = express()
 //View
 productRoute.get('/service', productController.redirectToService)
 productRoute.get('/show-product/:id', productController.redirectToProduct)
-
+productRoute.get('/show-products-on-page/:page', productController.redirectToProductsPage)
 
 productRoute.get('/', productController.getAll)
 productRoute.get('/:name', productController.getById)

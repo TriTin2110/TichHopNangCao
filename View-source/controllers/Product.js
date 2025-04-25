@@ -99,6 +99,15 @@ class ProductController {
                 req.session.productInSession = productInSession
                 res.json({ notice: '' })
         }
+
+        async redirectToProductsPage(req, res) {
+                let page = req.params.page
+                let products = req.session.productsInDB
+                let lastIndex = page * 10
+                let user = req.session.user
+                products = products.slice(lastIndex - 10, lastIndex)
+                res.render('./ejs/shoes.ejs', { products: products, user: user })
+        }
 }
 const productController = new ProductController()
 export default productController
