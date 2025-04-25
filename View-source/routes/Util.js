@@ -28,6 +28,18 @@ utilRoute.get('/info', (req, res) => {
 
 utilRoute.post('/sign-up', userController.insert)
 
-
+utilRoute.get('/search-product', async (req, res) => {
+        let wordKey = req.query.wordKey
+        let products = await req.session.productsInDB
+        let user = await req.session.user
+        let result = []
+        let id
+        for (let product of products) {
+                id = product._id + ''
+                if (id.includes(wordKey + ''))
+                        result.push(product)
+        }
+        res.render('./ejs/search-result.ejs', { products: result, user: user })
+})
 
 export {utilRoute}

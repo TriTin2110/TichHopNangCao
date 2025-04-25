@@ -9,9 +9,4 @@ userRoute.post('/', userController.insert)
 userRoute.post('/update', userController.update)
 userRoute.post('/:name', userController.remove)
 
-userRoute.get('/login-page', (req, res) => {
-    res.render('./ejs/login.ejs', { error: null })
-})
-
-
 export { userRoute }
