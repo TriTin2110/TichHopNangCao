@@ -32,12 +32,12 @@ class UserController {
         const { _id, password, fullName, phone, email, address } = req.body
         let user = await userRepository.findById(_id)
         if (user) {
-            res.send('Tài khoản đã tồn tại')
+            res.json({ error: "Tài khoản đã tồn tại!" })
         } else {
             try {
                 user = { _id, password, fullName, phone, email, address }
                 await userRepository.insert(user)
-                res.send(user)
+                res.redirect('/login')
             } catch (error) {
                 throw new Exception(Exception.CANNOT_INSERT)
             }
