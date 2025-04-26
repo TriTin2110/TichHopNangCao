@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Racing Boot</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="../css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" href="../css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="../css/responsive.css">
+      <!-- fevicon -->
+      <link rel="icon" href="../images/fevicon.png" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="../css/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <!-- owl stylesheets --> 
+      <link rel="stylesheet" href="../css/owl.carousel.min.css">
+      <link rel="stylesheet" href="../css/owl.theme.default.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+
+      <style>
+	.form-control{
+		margin-bottom: 20px;
+	}
+      </style>
+   </head>
+   <!-- body -->
+   <body class="main-layout">
+	<!-- header section start -->
+	<div class="header_section">
+		<%- include('./component/header.ejs')%>
+	</div>
+	<!-- new collection section start -->
+  <div class="collection_text">Giới thiệu thành viên</div>
+   <div class="about_main layout_padding">
+    <div class="collection_section">
+    	<div class="container">
+		<h1 class="new_text" style="color: #e13f60;"><strong>Hồ Sơ Người Dùng</strong></h1>
+    	</div>
+    </div>
+<div class="collectipn_section_3 layout_padding" style="padding-bottom: 40px;">
+    	<div class="container">
+    		<div class="racing_shoes">
+    			<div class="row">
+    				<div class="col-md-8">
+    					<div class="shoes-img3"><img  style="width: 400px; height: auto; " src="../images/introduce.png"></div>
+    				</div>  
+    				<div class="col-md-4">
+			<div class="number_text"><strong> <span style="color: #0a0506; font-size: 20px; ">Tên: </span><span
+						style="color: #030303; font-size: 20px; "><%=user.fullName%></span>
+				</strong></div>
+				<div class="sale_text"><strong><span style="color: #030303; font-size: 20px; ">Điện thoại: <%=user.phone%>
+								</span></strong></div>
+    					<div class="sale_text"><strong><span style="color: #030303; font-size: 20px; "  >Địa chỉ: <%=user.address%></span></strong></div>
+					<div><strong><span style="color: #030303; font-size: 20px; ">Địa chỉ email: <%=user.email%>
+									</span></strong></div>
+    				</div>
+    			</div>
+			<div style="float: right; padding-right: 23px;">
+				<button class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter" style="width: 335px;">Thay đổi thông tin</button>
+			</div>
+    		</div>
+    	</div>
+    </div>
+    </div>
+	<!-- new collection section end -->
+	<!-- section footer start -->
+	<%- include('./component/footer.ejs')%>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Chỉnh sửa thông tin</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="./user/update" method="post" id="update-form">
+						<div class="form-group">
+							<input type="hidden" name="_id" value="<%=user._id%>">
+							<input type="text" class="form-control" placeholder="Họ Tên" name="fullName" value="<%=user.fullName%>">
+							<input type="text" class="form-control" placeholder="Số Điện Thoại" name="phone" value="<%=user.phone%>">
+							<input type="text" class="form-control" placeholder="Địa Chỉ" name="address" value="<%=user.address%>">
+							<input type="email" class="form-control" placeholder="Email" name="email" value="<%=user.email%>">
+						</div>
+					</form>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+					<button type="button" onclick="sendForm()" class="btn btn-primary">Lưu thay đổi</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+   </body>
+</html>

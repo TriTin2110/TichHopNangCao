@@ -18,7 +18,8 @@ class UserController {
         } else {
 
             if (await bcrypt.compare(password, userFound.password)) {
-                res.render('./ejs/index.ejs')
+                req.session.user = userFound
+                res.redirect('/')
             } else {
                 res.render('./ejs/login.ejs', { error: error })
             }
@@ -31,12 +32,12 @@ class UserController {
         const { _id, password, fullName, phone, email, address } = req.body
         let user = await userRepository.findById(_id)
         if (user) {
-            res.send('Tài khoản đã tồn tại')
+            res.json({ error: "Tài khoản đã tồn tại!" })
         } else {
             try {
                 user = { _id, password, fullName, phone, email, address }
                 await userRepository.insert(user)
-                res.send(user)
+                res.redirect('/login')
             } catch (error) {
                 throw new Exception(Exception.CANNOT_INSERT)
             }
@@ -45,14 +46,16 @@ class UserController {
     }
 
     async update(req, res) {
-        let _id = req.params.name
-        let { password, fullName, phone, email, address } = req.body
-        let user = { password, fullName, phone, email, address }
+        let { _id, fullName, phone, email, address } = req.body
+        let user = { fullName, phone, email, address }
         user = await userRepository.update(_id, user)
         if (!user)
             res.send('Tài khoản không tồn tại!')
-        else
-            res.send(user)
+        else {
+            req.session.user = await userRepository.findById(_id)
+            res.redirect('/info')
+        }
+
     }
 
     async remove(req, res) {

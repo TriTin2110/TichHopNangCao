@@ -1,6 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import { userRoute, orderRoute } from './routes/index.js'
+import { userRoute, orderRoute, utilRoute } from './routes/index.js'
 import { productRoute, insert, update } from './routes/Product.js'
 import { writeLog, MessageType } from './util/WriteLog.js'
 import connectToDB from './database/mongodb.js'
@@ -11,8 +11,6 @@ import path from 'path'
 import multer from 'multer'
 import session from 'express-session'
 import formatToVND from './util/NumberFormat.js'
-import { productRepository } from './repositories/index.js'
-
 
 dotenv.config()
 
@@ -37,6 +35,7 @@ const upload = multer({ storage: storage })
 insert(upload)
 update(upload)
 app.set('view engine', 'ejs')
+app.set('views', path.join(_dirname, 'views', 'ejs'));
 
 app.use((req, res, next) => {
     res.locals.formatToVND = formatToVND
@@ -51,17 +50,15 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(_dirname, '../views'))) //khai báo cho express biết nơi phục vụ file tĩnh có trong thư mục views
 app.use(bodyParser.json())
+app.use(express.json());
 app.use('/user', userRoute);
 app.use('/product', productRoute);
 app.use('/order', orderRoute);
+app.use('/', utilRoute);
 
-app.get('/', async (req, res) => {
-    let products
-    if (!req.session.productsInDB) {
-        products = await productRepository.findAll()
-    }
-    res.render('./ejs/index.ejs', { products: products.slice(0, 6) })
-})
+app.get('/user', (req, res) => {
+    res.render('user-view');
+});
 
 app.listen(8080, async() => {
     try {

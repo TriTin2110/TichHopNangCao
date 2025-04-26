@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Racing Boot</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="../css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" href="../css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="../css/responsive.css">
+      <!-- fevicon -->
+      <link rel="icon" href="../images/fevicon.png" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="../css/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <!-- owl stylesheets --> 
+      <link rel="stylesheet" href="../css/owl.carousel.min.css">
+      <link rel="stylesheet" href="../css/owl.theme.default.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+   </head>
+   <!-- body -->
+   <body class="main-layout">
+	<!-- header section start -->
+	<div class="header_section">
+		<%- include('./component/header.ejs')%>
+	</div>
+	<!-- new collection section start -->
+  <div class="collection_text">
+	<div style="width: 73%;
+    margin: 0px auto;
+    text-align: left;">Tìm thấy <%=products.length%> sản phẩm phù hợp!</div>
+  </div>
+   <div class="about_main layout_padding">
+    <div class="collectipn_section_3 layout_padding">
+    	<div class="container">
+    		<div class="racing_shoes">
+            <%if(products.length == 0){ %>
+               <div>
+                  <img style="    top: 50%;
+    left: 50%;
+    position: relative;
+    transform: translate(-50%, 0);" src="../images/empty-cart.png" alt="Không có ảnh">
+               </div>
+               <%}else{%>
+    			<table style="width: 100%; font-size: 20px;" >
+               <%for(let product of products){%>
+                  
+				<tr style="height: 100px;">
+					<td><a href="/product/show-product/<%=product._id%>"><img src="../images/products/<%=product.image%>" style="max-width: 40%;
+    top: 50%;
+    left: 50%;
+    position: relative;
+    transform: translate(-50%, 0);" alt="Không có ảnh"></a></td>
+					<td>
+                  <b>Tên sản phẩm</b>
+                 <div><a href="/product/show-product/<%=product._id%>" style="color: black;"><%=product._id%></a></div>
+               </td>
+					<td>
+                  <b>Giá</b>
+                  <div style="word-wrap: break-word;"><%=(product.specialPrice)?product.specialPrice:product.price%></td></div>
+               <td>
+                  <b>Số lượng</b> <div><%=product.amount%></div>
+               </td>
+               
+				</tr>
+				<%}%>
+            </table>
+            <%}%>
+    		</div>
+    	</div>
+    </div>
+    </div>
+    <%- include('./component/footer.ejs')%>
+   </body>
+</html>

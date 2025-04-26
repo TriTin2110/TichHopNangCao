@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+</head>
+<body>
+        <div class="container">
+                <div class="row">
+                        <div class="col-sm-1">
+                                <div class="logo"><a href="/"><img style="height: 42px; max-width: none;" src="../../images/logo.png"></a></div>
+                        </div>
+                        <div class="col-sm-9">
+                                <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 1000px;">
+                                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                                data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                                                aria-expanded="false" aria-label="Toggle navigation">
+                                                <span class="navbar-toggler-icon"></span>
+                                        </button>
+                                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                                <div class="navbar-nav" style="width: 100%; justify-content: center;">
+                                                        <a id="home" class="nav-item nav-link" style="width: 160px;"
+                                                                href="/">Trang
+                                                                chủ</a>
+                                                        <a class="nav-item nav-link" style="width: 120px;"
+                                                                href="contact.html">Liên hệ</a>
+                                                        <% if(user) { %>
+                                                                <a class="nav-item nav-link" style="width: 180px;"
+                                                                        href="/info">
+                                                                        <%=user._id%>
+                                                                </a>
+        
+                                                                <%}else{%>
+                                                                        <a class="nav-item nav-link" style="width: 180px;"
+                                                                                href="/login">Đăng nhập</a>
+                                                                        <%}%>
+                                                                        <form action="/search-product" style="width: 400px;">
+                                                                                <div style="display: flex;">
+                                                                                        <input class="form-control" type="text" placeholder="Nhập tên sản phẩm bạn muốn tìm!"
+                                                                                                style="max-width: 300px;" name="wordKey">
+                                                                                        <button style="background-color: rgba(255, 255, 255, 0);" class="nav-item nav-link last" href=""
+                                                                                                type="submit"><img src="../../images/search_icon.png" style="max-width: none;"></button>
+                                                                                </div>
+                                                                        </form>
+                                                                                                
+                                                                                <a class="nav-item nav-link last"
+                                                                                        href="/order/show-cart"><img
+                                                                                                src="../../images/shop_icon.png" style="max-width: none;"></a>
+                                                </div>
+                                        </div>
+                                </nav>
+                        </div>
+                </div>
+        </div>
+
+</body>
+</html>

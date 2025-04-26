@@ -30,7 +30,6 @@ class OrderController {
                         orderRepository.insert(order)
                         products = await orderMiddleWare.updateProduct(products)
                         req.session.order = { products, status, total }
-                        req.session.user = { _id, fullName, phone, address }
                         res.json({ redirect: '/order/show-thank-you' })
                 } catch (error) {
                         console.error(error)
@@ -80,8 +79,13 @@ class OrderController {
                 }
         }
 
-        showCart(req, res) {
-                res.render('./ejs/shoppingcart.ejs')
+        async showCart(req, res) {
+                let productInSession = await req.session.productInSession
+                let user = await req.session.user
+                if (user)
+                        res.render('./ejs/shoppingcart.ejs', { products: productInSession, user: user })
+                else
+                        res.redirect('/login')
         }
 
         async showConfirm(req, res) {
@@ -93,6 +97,7 @@ class OrderController {
                 let order = await req.session.order
                 let user = await req.session.user
                 let products = await order.products
+                req.session.productInSession = null
                 res.render('./ejs/thank-you-for-shopping.ejs', { order, products, user })
         }
 }

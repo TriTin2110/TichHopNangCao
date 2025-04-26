@@ -1,3 +1,4 @@
 import { userRoute } from './User.js';
 import { orderRoute } from './Order.js'
-export { userRoute, orderRoute }
+import { utilRoute } from './Util.js'
+export { userRoute, orderRoute, utilRoute }

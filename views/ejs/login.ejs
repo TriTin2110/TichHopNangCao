@@ -13,8 +13,8 @@
 
 <body>
     <!-- from login -->
-    <div class="login" style="background-image: url(images/shoes-img1.png);background-position: right;">
-        <div class="login__container">
+    <div class="login" style="background-image: url(../images/shoes-img1.png);background-position: right;">
+        <div class="login__container" style="max-width: 400px;">
             <h1>Đăng Nhập</h1>
             <div id="error" style="text-align: center; color: red;">
                 <%= error && error %>
@@ -24,12 +24,10 @@
                 <input type="text" id="input-login-username" name="username" />
                 <h5>Mật khẩu</h5>
                 <input type="password" id="input-login-password" name="password" />
-                <button onclick="login()" type="submit" class="login__signInButton">Đăng Nhập</button>
+                <button type="submit" class="login__signInButton">Đăng Nhập</button>
             </form>
-            <a href="./signup.html" class="login__registerButton">Tạo tài khoản mới</a>
+            <a href="/show-sign-up" class="login__registerButton">Tạo tài khoản mới</a>
         </div>
     </div>
 </body>
-<script src="./js/signup.js"></script>
-
 </html>
