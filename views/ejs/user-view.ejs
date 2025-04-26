@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách người dùng</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+
+<body>
+    <h3 style="text-align: center;">
+        <strong style="color: red;"></strong> Danh sách người dùng
+    </h3>
+    <hr>
+
+    <div style="color: red; text-align: center; margin-bottom: 20px;">
+        <%= error && error %>
+    </div>
+    <div style="width: 80%; margin: auto;">
+        <table border="1" style="margin: 0px auto;" class="table table-bordered">
+            <thead class="text-center">
+                <tr>
+                    <th>STT</th>
+                    <th>Username (ID)</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>SĐT</th>
+                    <th>Địa chỉ</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% let i=1; for (let user of users) { %>
+                    <tr>
+                        <td>
+                            <%= i %>
+                        </td>
+                        <td>
+                            <%= user._id %>
+                        </td>
+                        <td>
+                            <%= user.fullName %>
+                        </td>
+                        <td>
+                            <%= user.email %>
+                        </td>
+                        <td>
+                            <%= user.phone %>
+                        </td>
+                        <td>
+                            <%= user.address %>
+                        </td>
+                        <td>
+                            <a class="btn btn-success"
+                                onclick='return updateUser("<%= user._id %>", "<%= user.password %>", "<%= user.fullName %>", "<%= user.phone %>", "<%= user.email %>", "<%= user.address %>")'
+                                href="#">Update</a>
+                            <a class="btn btn-danger" href="#" onclick='return deleteUser("<%= user._id %>")'>Delete</a>
+
+                        </td>
+                    </tr>
+                    <% i++; } %>
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+        function updateUser(id, password, fullName, phone, email, address) {
+            const newFullName = prompt("Nhập tên mới:", fullName);
+            const newPhone = prompt("Nhập số điện thoại mới:", phone);
+            const newEmail = prompt("Nhập email mới:", email);
+            const newAddress = prompt("Nhập địa chỉ mới:", address);
+        
+            if (newFullName && newPhone && newEmail && newAddress) {
+                fetch(`/user/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        password: password,
+                        fullName: newFullName,
+                        phone: newPhone,
+                        email: newEmail,
+                        address: newAddress
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Server error');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert(data.message);
+                    location.reload();
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+            }
+        }
+
+        function deleteUser(id) {
+            if (!confirm("Bạn có chắc chắn muốn xoá người dùng này không?")) {
+                return false;
+            }
+
+            fetch(`/user/${id}`, {
+                method: "DELETE"
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message || "Xoá thành công!");
+                    location.reload();
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Có lỗi xảy ra!");
+                });
+
+            return false; // Chặn load trang
+        }
+    </script>
+
+
+</body>
+
+</html>
