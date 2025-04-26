@@ -56,23 +56,28 @@
     			<table style="width: 100%; font-size: 20px;" >
                <%for(let product of products){%>
                   
-				<tr style="height: 100px;">
+            <tr style="height: 100px;">
 					<td><a href="/product/show-product/<%=product._id%>"><img src="../images/products/<%=product.image%>" style="max-width: 40%;
     top: 50%;
     left: 50%;
     position: relative;
     transform: translate(-50%, 0);" alt="Không có ảnh"></a></td>
-					<td>
+               <td style="max-width: 450px; padding: 10px;">
                   <b>Tên sản phẩm</b>
                  <div><a href="/product/show-product/<%=product._id%>" style="color: black;"><%=product._id%></a></div>
                </td>
 					<td>
                   <b>Giá</b>
-                  <div style="word-wrap: break-word;"><%=(product.specialPrice)?product.specialPrice:product.price%></td></div>
+                  <div style="word-wrap: break-word; padding: 10px;">
+                     <%=(product.specialPrice)?product.specialPrice:product.price%>
+                        </td>
+                  </div>
                <td>
-                  <b>Số lượng</b> <div><%=product.amount%></div>
+                  <b>Số lượng</b>
+                  <div style="padding: 10px;">
+                     <%=product.amount%>
+                  </div>
                </td>
-               
 				</tr>
 				<%}%>
             </table>

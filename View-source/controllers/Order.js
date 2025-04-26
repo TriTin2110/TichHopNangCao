@@ -37,28 +37,30 @@ class OrderController {
         }
 
         async update(req, res) {
-                const _id = Number.parseInt(req.params.id)
-                let { fullName, phone, address, products, status, total } = req.body
+                let { _id, fullName, phone, address, products, status, total } = req.body
                 try {
                         let order = { _id, fullName, phone, address, products, status, total }
                         let result = orderRepository.update(_id, order)
                         if (!result)
-                                res.send('Đơn hàng không tồn tại!')
-                        else
-                                res.send(order)
+                                res.json({ notice: 'Đơn hàng không tồn tại!' })
+                        else {
+                                let orders = await orderRepository.findAll()
+                                res.json({ notice: 'Đã cập nhật đơn hàng thành công!' })
+                        }
+
                 } catch (error) {
                         console.error(error)
                 }
         }
 
         async remove(req, res) {
-                const _id = Number.parseInt(req.params.id)
+                const _id = req.params.id
                 try {
-                        let result = orderRepository.remove(_id)
+                        let result = await orderRepository.remove(_id)
                         if (!result)
-                                res.send('Đơn hàng không tồn tại!')
+                                res.json({ notice: 'Đơn hàng không tồn tại!' })
                         else
-                                res.send(result)
+                                res.json({ notice: 'Đã xóa đơn hàng thành công!' })
                 } catch (error) {
                         console.error(error)
                 }
@@ -99,6 +101,12 @@ class OrderController {
                 let products = await order.products
                 req.session.productInSession = null
                 res.render('./ejs/thank-you-for-shopping.ejs', { order, products, user })
+        }
+
+        async showService(req, res) {
+                let orders = await orderRepository.findAll()
+                let products = await productRepository.findAll()
+                res.render('./ejs/order-service.ejs', { orders: orders, error: null, productInDBs: JSON.stringify(products) })
         }
 }
 

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+        <meta charset="UTF-8">
+        <title>Danh sách người dùng</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <style>
+                .table td {
+                        vertical-align: middle;
+                }
+        </style>
+</head>
+
+<body>
+        <h3 style="text-align: center;">
+                <strong style="color: red;"></strong> Danh sách đơn hàng
+        </h3>
+        <hr>
+
+        <div style="color: red; text-align: center; margin-bottom: 20px;">
+                <%= error && error %>
+        </div>
+        <div style="width: 90%; margin: auto;">
+                <table border="1" style="margin: 0px auto;" class="table table-bordered">
+                        <thead class="text-center">
+                                <tr>
+                                        <th>Họ tên</th>
+                                        <th>SĐT</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Sản phẩm (Số Lượng)</th>
+                                        <th>Trạng thái</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Thao tác</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <% 
+                                        for (let order of orders) { %>
+                                        <tr>
+                                                <input id="orderId" type="hidden" value="<%=order._id%>">
+                                                <td class="input-field">
+                                                        <span>
+                                                                <%= order.fullName %>
+                                                        </span>
+                                                </td>
+                                                <td class="input-field">
+                                                        <span>
+                                                                <%= order.phone %>
+                                                        </span>
+                                                </td>
+                                                <td class="input-field">
+                                                        <span>
+                                                                <%= order.address %>
+                                                        </span>
+                                                </td>
+                                                <td style="max-width: 450px; word-wrap: break-word;" id="products">
+                                                        <%for(let product of order.products){%>
+                                                                <div>
+                                                                        <span>
+                                                                                <%=product.productId%>
+                                                                        </span>
+                                                                        
+                                                                        <b>
+                                                                                (<%=product.amount%>)
+                                                                        </b>
+                                                                        
+                                                                </div>
+                                                                <%}%>
+                                                </td>
+                                                <td id="select-field">
+                                                        <span>
+                                                                <%=order.status%>
+                                                        </span>
+                                                </td>
+                                                <td id="total-result">
+                                                        <%=order.total%>
+                                                </td>
+                                                <td>
+                                                        <button class="btn btn-success" onclick="update(this)" id="btn-update">Cập
+                                                                nhật</button>
+                                                        <button style="display: none;" class="btn btn-success" id="btn-save">Lưu</button>
+                                                        <button onclick='return deleteOrder("<%=order._id%>")'
+                                                                class="btn btn-danger" id="btn-delete">Xoá</button>
+                                                        <button style="display: none;"  class="btn btn-danger" id="btn-cancel">Hủy</button>
+                                                </td>
+                                        </tr>
+                                        <%} %>
+                        </tbody>
+                </table>
+        </div>
+        <script>
+                function deleteOrder(id) {
+                        console.log(id)
+                        fetch(`/order/${id}`, {
+                                method: 'DELETE'
+                        }).then(async res => {
+                                let data = await res.json()
+                                alert(data.notice)
+                                location.reload()
+                        })
+                        return false
+                }
+
+                function update(el) {
+                        if (el instanceof HTMLElement) {
+                                let updateRow = el.parentElement.parentElement
+                                createInputField(updateRow)
+                                createStatusSelect(updateRow)
+                                createProductsField(updateRow)
+                                openButton(updateRow)
+                        }
+                }
+
+                function openButton(updateRow) {
+                                let buttonUpdate = updateRow.querySelector("#btn-update")
+                                let buttonSave = updateRow.querySelector("#btn-save")
+                                let buttonDelete = updateRow.querySelector("#btn-delete")
+                                let buttonCancel = updateRow.querySelector("#btn-cancel")
+
+                                buttonUpdate.style.display = 'none'
+                                buttonDelete.style.display = 'none'
+
+                                buttonSave.style.display = 'block'
+                                buttonCancel.style.display = 'block'
+
+                                buttonSave.addEventListener('click', () => {
+                                        saveChanged(updateRow)
+
+                                })
+                                buttonCancel.addEventListener('click', () =>{
+                                        location.reload()
+                                })
+                        }
+
+                        function createInputField(updateRow) {
+                                let inputFields = updateRow.querySelectorAll('.input-field')
+                                let input
+                                let inputNameArr = ['fullName', 'phone', 'address']
+                                let inputFieldsResult = []
+                                let i = 0
+                                for (let inputField of inputFields) {
+                                        input = document.createElement('input')
+                                        input.value = inputField.innerText
+                                        input.name = inputNameArr[i]
+                                        input.id = inputNameArr[i]
+                                        if (i == 1) {
+                                                input.style.maxWidth = '100px'
+                                                input.type = 'number'
+                                        }
+                                        else
+                                                input.type = 'text'
+                                        inputFieldsResult.push(input)
+                                        i++
+                                }
+                                for (let index = 0; index < inputFields.length; index++) {
+                                        inputFields[index].replaceChild(inputFieldsResult[index], inputFields[index].firstElementChild)
+                                }
+                        }
+
+                        function createStatusSelect(updateRow) {
+                                let selectField = updateRow.querySelector('#select-field')
+                                let selectOption = document.createElement('select')
+                                selectOption.className = 'form-control'
+                                selectOption.name = 'status'
+                                selectOption.id = 'status'
+
+                                let options = ['Đang xử lý', 'Đang giao hàng', 'Đã giao hàng']
+                                let option
+                                options.forEach(e => {
+                                        option = document.createElement('option')
+                                        option.value = e
+                                        option.innerText = e
+                                        selectOption.appendChild(option)
+                                })
+                                selectField.replaceChild(selectOption, selectField.firstElementChild)
+                        }
+
+                        async function createProductsField(updateRow) {
+                                let map = new Map()
+                                let products = updateRow.querySelector('#products')
+                                let total = updateRow.querySelector('#total-result')
+                                let div = products.querySelectorAll('div')
+                                let b = products.querySelectorAll('b')
+                                let input
+                                for (let i = 0; i < div.length; i++) {
+                                        //Tạo select cho tên sản phẩm
+                                        input = document.createElement('select')
+                                        b[i].innerText = b[i].innerText.replace(/[()]/g, "")
+                                        b[i] = Number.parseInt(b[i].innerText)
+                                        for (let productInDB of <%- productInDBs %>) {
+                                                if (div[i].firstElementChild.innerText.trim() === productInDB._id) {
+                                                        price = (productInDB.specialPrice) ? productInDB.specialPrice : productInDB.price
+                                                        let option = document.createElement('option')
+                                                        option.value = productInDB._id
+                                                        option.innerText = productInDB._id
+                                                        input.appendChild(option)
+                                                        break
+                                                }
+                                        }
+                                        input.className = 'form-control'
+                                        input.name = 'productId'
+                                        input.style.maxWidth = '400px'
+                                        input.style.marginTop = '20px'
+                                        div[i].replaceChild(input, div[i].firstElementChild)
+
+                                        //Tạo input amount cho sản phẩm
+                                        input = document.createElement('input')
+                                        input.name = 'amount'
+                                        input.type = 'number'
+                                        input.value = b[i].innerText
+                                        input.placeholder = 'Số lượng'
+                                        input.style.maxWidth = '100px'
+                                        input.className = 'form-control'
+                                        input.addEventListener('keyup', async (e) => {
+                                                let priceOfProduct = e.target.nextElementSibling.value
+                                                let amount = e.target.value
+                                                let totalPriceOfProduct = amount * priceOfProduct
+
+                                                let temp = 0
+                                                map.set(Number.parseInt(priceOfProduct), totalPriceOfProduct)
+                                                console.log(map)
+                                                map.forEach((value, key) => {
+                                                        temp += value
+                                                })
+                                                total.innerText = temp
+                                        })
+                                        div[i].replaceChild(input, div[i].lastElementChild)
+
+                                        let priceInput
+
+                                        priceInput = document.createElement('input')
+                                        priceInput.type = 'input'
+                                        priceInput.value = price
+                                        priceInput.id = 'price'
+                                        priceInput.disabled = 'true'
+                                        div[i].appendChild(priceInput)
+
+                                        map.set(price, price * Number.parseInt(b[i].innerText))
+                                }
+                        }
+
+                function saveChanged(updateRow) {
+                        let _id = updateRow.querySelector("#orderId").value
+                        let fullName = updateRow.querySelector('#fullName').value
+                        let phone = updateRow.querySelector('#phone').value
+                        let address = updateRow.querySelector('#address').value
+                        let status = updateRow.querySelector('#status').value
+                        let total = updateRow.querySelector('#total-result')
+                        total = Number.parseInt(total.innerText)
+                        console.log(total)
+                        let products = []
+                        let productsField = updateRow.querySelectorAll('#products div')
+                        for(let div of productsField)
+                        {
+                                let productId = div.firstElementChild
+                                let amount = productId.nextElementSibling
+
+                                productId = productId.value
+                                amount = amount.value
+                                products.push({productId, amount})
+                        }
+                       fetch('/order', {
+                                method: 'PUT',
+                                headers: { 'Content-type': 'application/json' },
+                                body: JSON.stringify({ _id, fullName, phone, address, products, status, total })
+                       }).then(async res =>{
+                                let data = await res.json()
+                                alert(data.notice)
+                                location.reload()
+                       })
+                }
+
+
+                
+        </script>
+</body>
+
+</html>
