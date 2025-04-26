@@ -132,11 +132,12 @@
 					</div>
 					<%
 						if(user){
-					%>
+					if(product.amount > 0){%>
 					<div style="padding-top: 20px;">
 						<button class="btn btn-success" style="float: right;" onclick="addToCart()">Thêm vào giỏ hàng</button>
 					</div>
-					<%}
+				
+					<%}}
 					else{%>
 						<p style="color: red;">Bạn cần phải đăng nhập trước khi mua hàng!</p>
 						<%}%>

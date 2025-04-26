@@ -1,5 +1,5 @@
 import express from 'express'
-import { productRepository } from '../repositories/index.js'
+import { orderRepository, productRepository } from '../repositories/index.js'
 import { userController } from '../controllers/index.js'
 let utilRoute = express()
 
@@ -21,9 +21,27 @@ utilRoute.get('/login', (req, res) => {
         res.render('./ejs/login.ejs', {error: null})
 })
 
-utilRoute.get('/info', (req, res) => {
-        let user = req.session.user
-        res.render('./ejs/introduce.ejs', { user: user })
+utilRoute.get('/about-us', (req, res) => {
+        res.render('./ejs/about-us.ejs')
+})
+
+utilRoute.get('/transport', (req, res) => {
+        res.render('./ejs/transport.ejs')
+})
+
+utilRoute.get('/contact', (req, res) => {
+        res.render('./ejs/contact-footer.ejs')
+})
+
+utilRoute.get('/introduce-my-group', (req, res) => {
+        res.render('./ejs/introduce-group.ejs')
+})
+
+utilRoute.get('/info', async (req, res) => {
+        let user = await req.session.user
+        let orders = await orderRepository.findByUsername(user._id)
+        let product = await req.session.productsInDB
+        res.render('./ejs/introduce.ejs', { user: user, orders: orders, products: product })
 })
 
 utilRoute.post('/sign-up', userController.insert)

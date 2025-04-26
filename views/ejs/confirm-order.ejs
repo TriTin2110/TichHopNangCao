@@ -172,11 +172,11 @@
                         }
 
                         let total = (document.getElementById("total").innerText).replace(/[^\d]/g, '')
-                        console.log(total)
+                        let username = '<%=user._id%>'                      
                         fetch('/order', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ fullName, address, phone, products, total })
+                                body: JSON.stringify({username, fullName, address, phone, products, total })
                         }).then(async res => {
                                 let data = await res.json();
                                 window.location.href = data.redirect

@@ -33,6 +33,18 @@ class OrderMiddleWare {
                 }
                 return products
         }
+
+        async checkAmountProduct(orderedProduct) { 
+                for (let product of orderedProduct) {
+                        let productId = product.id
+                        let p = await productRepository.findById(productId)
+                        console.log(p)
+                        if (p.amount < product.amount) {
+                                return false
+                        }
+                }
+                return true
+        }
 }
 
 const orderMiddleWare = new OrderMiddleWare()

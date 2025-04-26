@@ -2,6 +2,10 @@ import mongoose, { Schema } from "mongoose";
 
 let OrderModel = mongoose.model('Order', new Schema({
         _id: { type: Schema.Types.String },
+        username: {
+                type: Schema.Types.String,
+                required: true
+        },
         fullName: {
                 type: Schema.Types.String,
                 required: true

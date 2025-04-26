@@ -100,6 +100,21 @@ class ProductController {
                 res.json({ notice: '' })
         }
 
+        async removeFromCart(req, res) {
+                let id = req.body.id
+                let product = await productRepository.findById(id)
+                let productInSession = await req.session.productInSession
+                try {
+                        await productInSession.pop(product)
+                        req.session.productInSession = productInSession
+                        res.json({ result: true })
+                } catch (error) {
+                        console.error(error)
+                        res.json({ result: false })
+                }
+
+        }
+
         async redirectToProductsPage(req, res) {
                 let page = req.params.page
                 let products = req.session.productsInDB

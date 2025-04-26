@@ -50,7 +50,8 @@
             <div class="container">
                 <div class="racing_shoes">
                         <div class="row" style="margin-left: 20px; margin-right: 0px; height: 500px;">
-                            <table id="cart-table" style="margin: 0px auto;" border="1">
+                            <table id="cart-table" style="margin: 0px auto; width: 90%;" border="1">
+                                <tbody id="cart-table-body">
                                 <% if(!products){ %>
                                     <div
                                         style="width: 100%;
@@ -61,7 +62,7 @@
                                         <h1>Giỏ Hàng Trống!</h1>
                                     </div>
                                     <%}else{ for(let product of products){ %>
-                                        <tr data-id="<%=product._id%>">
+                                        <tr id="<%=product._id%>" data-id="<%=product._id%>">
                                             <td>
                                                 <img style="max-width: 200px;top: 50%;left: 50%;position: relative;transform: translate(-50%, 0px);"
                                                     src="../images/products/<%=product.image%>" alt="">
@@ -73,25 +74,44 @@
                                                 <%=(product.specialPrice>0)?product.specialPrice: product.price%>
                                             </td>
                                             <td><input type="number" id="amount" required></td>
+                                            <td><button class="btn btn-cancel" onclick='removeProduct("<%=product._id%>")'>Xóa bỏ</button></td>
                                         </tr>
+                                        
                                     <%}}%>
+                                    </tbody>
                             </table>
                         </div>
-                        <% if(products){ %>
-                        <div style="float: right; margin-right: 20px;">
-                            <button onclick="sendProducts()" class="btn btn-success" type="button">Tiến hành thanh toán</button>
-                        </div>
-                        <%}%>
-                </div>
-            </div>
-        </div>
+                        <div style="margin-top: 40px;">
+                            <div style="float: left; margin-left: 40px;">
+                                <a href="/" class="btn btn-danger">Quay lại</a>
+                            </div>
+                            <% if(products){ %>
+                            <div style="float: right; margin-right: 40px;" id="button-layout">
+                                <button onclick="sendProducts()" class="btn btn-success" type="button">Tiến hành thanh toán</button>
+                            </div>
+                            <%}%>
+                                </div>
+                                </div>
+                                </div>
+                                </div>
     </div>
     <!-- new collection section end -->
     <!-- section footer start -->
     <%-include('./component/footer.ejs')%>
 
     <script>
+        let tableBody = document.querySelector('#cart-table-body')
+        check()
         async function sendProducts() {
+            let amounts = document.querySelectorAll('#amount')
+            for(let amount of amounts)
+            {
+                if(!amount.value)
+                {
+                    alert('Vui lòng nhập số lượng tất cả các sản phẩm!')
+                    return fasle
+                }
+            }
             let rows = document.querySelectorAll("#cart-table tr")
             let products = []
 
@@ -108,9 +128,44 @@
                 body: JSON.stringify({ _idUser ,products })
             }).then(async res => {
                 let data = await res.json()
-                window.location.href = data.redirect
+                if(data.error)
+                {
+                    alert(data.error)
+                    return false
+                }
+                else
+                    window.location.href = data.redirect
             })
         }
+            function removeProduct(id) {
+                fetch('/product/remove-from-cart', {
+                    method: "DELETE",
+                    headers: { 'Content-type': 'application/json' },
+                    body: JSON.stringify({ id })
+                }).then(async res => {
+                    let data = await res.json()
+                    console.log(data)
+                    if (data.result) {
+                        let tr = document.getElementById(id)
+                        tableBody.removeChild(tr)
+                        check()
+                    }
+                })
+            }
+
+            function check() {
+                if (tableBody.children.length == 0) {
+                    document.querySelector('#button-layout').style.display = 'none'
+                    let tr = document.createElement('tr')
+                    let td = document.createElement('td')
+                    let img = document.createElement('img')
+                    img.src = '../images/empty-cart.png'
+                    img.style = 'top: 50%; left: 50%; position: relative; transform: translate(-50%, 0)'
+                    td.appendChild(img)
+                    tr.appendChild(td)
+                    tableBody.appendChild(tr)
+                }
+            }
     </script>
 </body>
 

@@ -1,7 +1,15 @@
+import session from "express-session";
 import { OrderModel } from "../models/index.js";
 class OrderRepository { 
         async findAll() { 
                 let orders = OrderModel.find().exec()
+                return orders
+        }
+
+        async findByUsername(username) {
+                let orders = await OrderModel.find({
+                        username: username
+                })
                 return orders
         }
 

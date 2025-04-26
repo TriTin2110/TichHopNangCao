@@ -20,6 +20,7 @@ function update(upload) {
 
 productRoute.get('/delete/:name', productController.remove)
 productRoute.post('/add-to-cart', productController.addToCart)
+productRoute.delete('/remove-from-cart', productController.removeFromCart)
 
 export { productRoute, insert, update }
 

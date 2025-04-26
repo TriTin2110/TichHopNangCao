@@ -22,11 +22,11 @@ class OrderController {
         }
 
         async insert(req, res) {
-                let { fullName, phone, address, products, total } = req.body
+                let { username, fullName, phone, address, products, total } = req.body
                 let _id = Date.now() + "-" + fullName
                 let status = 'Đang Xử Lý'
                 try {
-                        let order = { _id, fullName, phone, address, products, status, total }
+                        let order = { _id, username, fullName, phone, address, products, status, total }
                         orderRepository.insert(order)
                         products = await orderMiddleWare.updateProduct(products)
                         req.session.order = { products, status, total }
@@ -40,6 +40,7 @@ class OrderController {
                 let { _id, fullName, phone, address, products, status, total } = req.body
                 try {
                         let order = { _id, fullName, phone, address, products, status, total }
+                        await orderMiddleWare.updateProduct(products)
                         let result = orderRepository.update(_id, order)
                         if (!result)
                                 res.json({ notice: 'Đơn hàng không tồn tại!' })
@@ -69,13 +70,19 @@ class OrderController {
         async confirmOrder(req, res) {
                 try {
                         let { _idUser, products } = req.body
-                        let user = await userRepository.findById(_idUser)
-                        let totalResult = await orderMiddleWare.totalPriceHandle(products)
-                        products = totalResult.productsResult
-                        let total = totalResult.total
-                        let order = { products, total }
-                        req.session.order = { order, user }
-                        res.json({ redirect: '/order/show-confirm' })
+                        //kiểm tra hàng tồn kho
+                        let amountValid = await orderMiddleWare.checkAmountProduct(products)
+                        if (!amountValid)
+                                res.json({ error: 'Số lượng sản phẩm không hợp lệ!' })
+                        else {
+                                let user = await userRepository.findById(_idUser)
+                                let totalResult = await orderMiddleWare.totalPriceHandle(products)
+                                products = totalResult.productsResult
+                                let total = totalResult.total
+                                let order = { products, total }
+                                req.session.order = { order, user }
+                                res.json({ redirect: '/order/show-confirm' })
+                        }
                 } catch (error) {
                         console.error(error)
                 }

@@ -33,6 +33,9 @@
 	.form-control{
 		margin-bottom: 20px;
 	}
+	td{
+		padding: 10px;
+	}
       </style>
    </head>
    <!-- body -->
@@ -71,6 +74,66 @@
 				<button class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter" style="width: 335px;">Thay đổi thông tin</button>
 			</div>
     		</div>
+		<div style="margin-top: 40px;">
+		
+			<div class="racing_shoes" style="background-color: white;">
+				<h1 style="text-align: center; font-size: 34px; font-weight: 600; padding-top: 20px; ">Đơn hàng của tôi
+				</h1>
+				<%for(let order of orders){%>
+					<div style="margin-top: 100px;">
+						<div class="row" style="margin-left: 20px; margin-right: 0px;">
+							<table border="1" style="margin: 0px auto; font-size: 18px;">
+								<tr>
+									<th>No.</th>
+									<th>Ảnh</th>
+									<th>Tên Sản Phẩm</th>
+									<th>Giá</th>
+									<th>Số Lượng</th>
+									<th>Trạng thái</th>
+									<th>Tổng cộng</th>
+								</tr>
+								<% let i=1 ; for(let product of products){ for(let productOrder of
+									order.products){ if(productOrder.productId==product._id) {
+									product.price=(product.specialPrice> 0) ? product.specialPrice :
+									product.price
+									%>
+									<tr>
+										<td class="number">
+											<%=i%>
+										</td>
+										<td><img src="../images/products/<%=product.image%>"
+												alt="không có ảnh" width="150"></td>
+										<td style="max-width: 300px;">
+											<%=product._id%>
+										</td>
+										<td class="number">
+											<%=formatToVND(product.price)%>
+										</td>
+										<td class="number">
+											<%=productOrder.amount%>
+										</td>
+										<td>
+											<%=order.status%>
+										</td>
+										<td class="number">
+											<%=formatToVND(productOrder.amount *
+												product.price)%>
+										</td>
+									</tr>
+									<%i++} }}%>
+							</table>
+						</div>
+						<div style="margin-top: 30px; margin-right: 90px;">
+							<h2 style="float: right; margin-right: 20px;  border-bottom: 1px solid black;">Tổng tiền:
+								<strong>
+									<%=formatToVND(order.total)%>
+								</strong>
+							</h2>
+						</div>
+					</div>
+					<%}%>
+			</div>
+		</div>
     	</div>
     </div>
     </div>
